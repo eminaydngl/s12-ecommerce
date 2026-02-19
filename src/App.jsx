@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom"
+import { Routes, Route, Navigate } from "react-router-dom";
 import MainLayout from "./layouts/MainLayout";
 import AuthLayout from "./layouts/AuthLayout";
 import Login from "./pages/Login";
@@ -8,16 +8,14 @@ import AllTvSeriesPage from "./pages/AllTvSeriesPage";
 import AllMoviesPage from "./pages/AllMoviesPage";
 import AppContextProvider from "./context/AppContext";
 
-
-
-
-
 function App() {
-
   return (
     <AppContextProvider>
       <Routes>
-        <Route element={< AuthLayout />}>
+
+        <Route path="/" element={<Navigate to="/login" />} />
+
+        <Route element={<AuthLayout />}>
           <Route path="/login" element={<Login />} />
         </Route>
 
@@ -27,10 +25,10 @@ function App() {
           <Route path="/AllTvSeries" element={<AllTvSeriesPage />} />
           <Route path="/AllMovies" element={<AllMoviesPage />} />
         </Route>
+
       </Routes>
     </AppContextProvider>
   );
 }
 
 export default App;
-
