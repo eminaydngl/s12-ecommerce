@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>All Movies - CineTrack</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700&amp;display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#1152d4",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#101622",
+                        "surface-dark": "#161d2b",
+                        "border-dark": "#1e2738",
+                    },
+                    fontFamily: {
+                        "display": ["Be Vietnam Pro"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Be Vietnam Pro', sans-serif;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #1e2738;
+            border-radius: 10px;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #1152d4;
+        }
+    </style>
+</head>
+
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 font-display">
+    <div class="flex h-screen overflow-hidden">
+        <!-- Sidebar -->
+        <aside
+            class="w-64 flex-shrink-0 border-r border-slate-200 dark:border-border-dark bg-white dark:bg-surface-dark hidden md:flex flex-col">
+            <div class="p-6">
+                <div class="flex items-center gap-2 text-primary">
+                    <span class="material-icons text-3xl">movie_filter</span>
+                    <span class="text-xl font-bold tracking-tight text-slate-900 dark:text-white">CineTrack</span>
+                </div>
+            </div>
+            <nav class="flex-1 px-4 space-y-1 mt-4">
+                <a class="flex items-center gap-3 px-4 py-3 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-primary/10 hover:text-primary dark:hover:text-primary transition-colors rounded-xl"
+                    href="#">
+                    <span class="material-icons">home</span>
+                    <span class="font-medium">Home</span>
+                </a>
+                <a class="flex items-center gap-3 px-4 py-3 bg-primary/10 text-primary rounded-xl" href="#">
+                    <span class="material-icons">movie</span>
+                    <span class="font-medium">All Movies</span>
+                </a>
+                <a class="flex items-center gap-3 px-4 py-3 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-primary/10 hover:text-primary dark:hover:text-primary transition-colors rounded-xl"
+                    href="#">
+                    <span class="material-icons">tv</span>
+                    <span class="font-medium">All TV Series</span>
+                </a>
+                <a class="flex items-center gap-3 px-4 py-3 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-primary/10 hover:text-primary dark:hover:text-primary transition-colors rounded-xl"
+                    href="#">
+                    <span class="material-icons">favorite</span>
+                    <span class="font-medium">Favorites</span>
+                </a>
+            </nav>
+            <div class="p-6 border-t border-slate-200 dark:border-border-dark">
+                <div class="flex items-center gap-3 px-4 py-2">
+                    <div
+                        class="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-white text-xs font-bold">
+                        JD
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="text-sm font-semibold text-slate-900 dark:text-white leading-tight">John Doe</span>
+                        <span class="text-xs text-slate-500 dark:text-slate-400">Pro Member</span>
+                    </div>
+                </div>
+            </div>
+        </aside>
+        <!-- Main Content -->
+        <div class="flex-1 flex flex-col min-w-0 overflow-hidden">
+            <!-- Header -->
+            <header
+                class="h-16 flex items-center justify-between px-8 border-b border-slate-200 dark:border-border-dark bg-white/80 dark:bg-surface-dark/80 backdrop-blur-md z-10">
+                <div class="flex-1 max-w-2xl">
+                    <div class="relative group">
+                        <span
+                            class="material-icons absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-primary transition-colors">search</span>
+                        <input
+                            class="w-full pl-10 pr-4 py-2 bg-slate-100 dark:bg-background-dark border-none focus:ring-2 focus:ring-primary rounded-lg text-sm text-slate-900 dark:text-white placeholder:text-slate-500"
+                            placeholder="Search movies..." type="text" />
+                    </div>
+                </div>
+                <div class="flex items-center gap-4 ml-4">
+                    <button class="p-2 text-slate-500 hover:text-primary transition-colors">
+                        <span class="material-icons">notifications</span>
+                    </button>
+                    <button class="p-2 text-slate-500 hover:text-primary transition-colors" id="theme-toggle">
+                        <span class="material-icons">dark_mode</span>
+                    </button>
+                </div>
+            </header>
+            <!-- Content Area -->
+            <main class="flex-1 overflow-y-auto custom-scrollbar bg-background-light dark:bg-background-dark">
+                <div class="p-8">
+                    <div class="flex items-center justify-between mb-8">
+                        <div>
+                            <h1 class="text-3xl font-bold text-slate-900 dark:text-white">All Movies</h1>
+                            <p class="text-slate-500 dark:text-slate-400 mt-1">Explore your collection of films</p>
+                        </div>
+                        <div class="flex items-center gap-2 text-sm text-slate-500 dark:text-slate-400">
+                            <span>Showing 120 movies</span>
+                        </div>
+                    </div>
+                    <!-- Movie Grid -->
+                    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-6">
+                        <!-- Movie Card 1 -->
+                        <div class="group flex flex-col">
+                            <div
+                                class="relative aspect-[2/3] overflow-hidden rounded-xl bg-slate-200 dark:bg-surface-dark shadow-lg">
+                                <img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                                    data-alt="Cinematic movie poster with neon lights"
+                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuBi6G8wIGjK2tTXemVC4zKSqGR3pJjGDTnlIUf87bJ9aAcCDyXzdBLUDvFvSsgUxTXaEyyJwmT3DixzoF5s4QkEdAy1h_hjfS5_nppn4_lnpKohcO_IVkSDrLCSD18jBbNPbEKEjnA7FY_1Zq1yiwGC3TyMTkqK81H9ounSqR6MYqt1gQltW52eyYhXS66N5YA11m11TlLPcn8YiUajNwTx7pIs_MNDIEhPt9pOmSX0Ys9Pws6_j7BF3DkDlFcd86y-uifySg6C0gU" />
+                                <div
+                                    class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
+                                    <button
+                                        class="w-full py-2 bg-primary text-white text-sm font-semibold rounded-lg flex items-center justify-center gap-2">
+                                        <span class="material-icons text-sm">play_arrow</span> Watch Now
+                                    </button>
+                                </div>
+                                <button
+                                    class="absolute top-3 right-3 p-2 bg-black/40 backdrop-blur-sm text-white rounded-lg hover:text-red-500 transition-colors">
+                                    <span class="material-icons text-xl">favorite_border</span>
+                                </button>
+                                <div
+                                    class="absolute top-3 left-3 px-2 py-1 bg-primary text-white text-[10px] font-bold uppercase rounded-md">
+                                    4K</div>
+                            </div>
+                            <div class="mt-4 flex flex-col gap-1">
+                                <div class="flex items-center justify-between">
+                                    <h3 class="font-semibold text-slate-900 dark:text-white truncate pr-2">Midnight
+                                        Echoes</h3>
+                                    <div class="flex items-center gap-1 text-amber-400">
+                                        <span class="material-icons text-sm">star</span>
+                                        <span class="text-xs font-bold text-slate-700 dark:text-slate-300">8.4</span>
+                                    </div>
+                                </div>
+                                <p class="text-xs text-slate-500 dark:text-slate-400">2024 • Sci-Fi / Action</p>
+                            </div>
+                        </div>
+                        <!-- Movie Card 2 -->
+                        <div class="group flex flex-col">
+                            <div
+                                class="relative aspect-[2/3] overflow-hidden rounded-xl bg-slate-200 dark:bg-surface-dark shadow-lg">
+                                <img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                                    data-alt="Vintage black and white film camera"
+                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuDgt_7fP1xsm0USKQts6kQPQ5CpN4dfrpjiDkx5NphWpYhUrQa9FcrrwjuUK7tRpgOUd583QDc67VnHA82HSU1ZxqY-jsTmaAoxJ-GVj1brTd2fTW2lzyHlEtybtRxTXFv9pLkM147JucOKBCaqZC36IOWqd15pV8xF8mJOabYoaMzMNXvVpr2yrwX2LXQllG_jDLzJwct5EHuhwDvYtfYi3ISVbwWoCC0usq2-NeFyGTdCVle90o1HusdC4OUjoXA4FmxJPA27XNQ" />
+                                <div
+                                    class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
+                                    <button
+                                        class="w-full py-2 bg-primary text-white text-sm font-semibold rounded-lg flex items-center justify-center gap-2">
+                                        <span class="material-icons text-sm">play_arrow</span> Watch Now
+                                    </button>
+                                </div>
+                                <button
+                                    class="absolute top-3 right-3 p-2 bg-black/40 backdrop-blur-sm text-red-500 rounded-lg transition-colors">
+                                    <span class="material-icons text-xl">favorite</span>
+                                </button>
+                            </div>
+                            <div class="mt-4 flex flex-col gap-1">
+                                <div class="flex items-center justify-between">
+                                    <h3 class="font-semibold text-slate-900 dark:text-white truncate pr-2">The Silent
+                                        Frame</h3>
+                                    <div class="flex items-center gap-1 text-amber-400">
+                                        <span class="material-icons text-sm">star</span>
+                                        <span class="text-xs font-bold text-slate-700 dark:text-slate-300">9.1</span>
+                                    </div>
+                                </div>
+                                <p class="text-xs text-slate-500 dark:text-slate-400">2023 • Documentary</p>
+                            </div>
+                        </div>
+                        <!-- Movie Card 3 -->
+                        <div class="group flex flex-col">
+                            <div
+                                class="relative aspect-[2/3] overflow-hidden rounded-xl bg-slate-200 dark:bg-surface-dark shadow-lg">
+                                <img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                                    data-alt="Dark abstract portrait for thriller movie"
+                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuBObXkUgi2Nk2Z3GViU-cpggjyMuqHJ5VXtf91WPmlmbGMwytGbYP9mPdCb_71vBCYe568IhYmtYp9PMzwZTHNz3Ze1_ZKqBxM4jEsSUDwyb_KVD8fDR350UldEyenDn9Xj1jiQ2ENopz5XA9jF_efgxs61vt6Ay9c1SoBVKiyyz0vJPDl14e84X4LSf8nuFV2blD0VVHy94okO_Up_LQspzu8Nhvnfq9hhBxXLLir8T79yI9Jp8QljXivez8GmzFIg9V7xIFBey-s" />
+                                <div
+                                    class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
+                                    <button
+                                        class="w-full py-2 bg-primary text-white text-sm font-semibold rounded-lg flex items-center justify-center gap-2">
+                                        <span class="material-icons text-sm">play_arrow</span> Watch Now
+                                    </button>
+                                </div>
+                                <button
+                                    class="absolute top-3 right-3 p-2 bg-black/40 backdrop-blur-sm text-white rounded-lg hover:text-red-500 transition-colors">
+                                    <span class="material-icons text-xl">favorite_border</span>
+                                </button>
+                            </div>
+                            <div class="mt-4 flex flex-col gap-1">
+                                <div class="flex items-center justify-between">
+                                    <h3 class="font-semibold text-slate-900 dark:text-white truncate pr-2">Obsidian</h3>
+                                    <div class="flex items-center gap-1 text-amber-400">
+                                        <span class="material-icons text-sm">star</span>
+                                        <span class="text-xs font-bold text-slate-700 dark:text-slate-300">7.8</span>
+                                    </div>
+                                </div>
+                                <p class="text-xs text-slate-500 dark:text-slate-400">2024 • Thriller</p>
+                            </div>
+                        </div>
+                        <!-- Movie Card 4 -->
+                        <div class="group flex flex-col">
+                            <div
+                                class="relative aspect-[2/3] overflow-hidden rounded-xl bg-slate-200 dark:bg-surface-dark shadow-lg">
+                                <img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                                    data-alt="Old cinema theatre seats"
+                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuB8cgy3_KyN1EJVR5ymc8OvLwrwSdbX10ymLzgh3sL_Eq9CSl58Po6Qqie-TPSlZKZ3XFgc_ySxcMDmLf6sJTYrljYQK6U7mGyCeF8vIfwRl_901KvmZFKdYktEmz54ixQ2RsIbe2KcCUF2IAP9xKPVOcfckEywG4HRgSfGEkv0iA4M1qTlC3SRUCXdfMobTQokSrI1jN5my-mQotr6df8-m-7_xjl6xpvGe7RiCAV1KDxBWlwqbsuO0UguM3QIlehyzo5MD-M6lJQ" />
+                                <div
+                                    class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
+                                    <button
+                                        class="w-full py-2 bg-primary text-white text-sm font-semibold rounded-lg flex items-center justify-center gap-2">
+                                        <span class="material-icons text-sm">play_arrow</span> Watch Now
+                                    </button>
+                                </div>
+                                <button
+                                    class="absolute top-3 right-3 p-2 bg-black/40 backdrop-blur-sm text-white rounded-lg hover:text-red-500 transition-colors">
+                                    <span class="material-icons text-xl">favorite_border</span>
+                                </button>
+                            </div>
+                            <div class="mt-4 flex flex-col gap-1">
+                                <div class="flex items-center justify-between">
+                                    <h3 class="font-semibold text-slate-900 dark:text-white truncate pr-2">The Last
+                                        Matinee</h3>
+                                    <div class="flex items-center gap-1 text-amber-400">
+                                        <span class="material-icons text-sm">star</span>
+                                        <span class="text-xs font-bold text-slate-700 dark:text-slate-300">8.2</span>
+                                    </div>
+                                </div>
+                                <p class="text-xs text-slate-500 dark:text-slate-400">2022 • Mystery / Drama</p>
+                            </div>
+                        </div>
+                        <!-- Movie Card 5 -->
+                        <div class="group flex flex-col">
+                            <div
+                                class="relative aspect-[2/3] overflow-hidden rounded-xl bg-slate-200 dark:bg-surface-dark shadow-lg">
+                                <img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                                    data-alt="Modern neon city street at night"
+                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuAWrx62i41k9TGFGmdNKXnshVqFxCzOwytO3SlY-emIh0w_cD_bOrDfjD6YSPcSI6HwYwP2q2WafQcYO7hY1hMhpDC5PvML-utKQkq34o3dwnJTiHeFro2ZJWjDKPOHT8U-7X-dyhEEiQhVZYA9bFB6RBI0PWQdMKS59DVouOsqbPTclGIrjO0ABpzV3elK5DYt2pS7iuiSvtwpWFtC2WZLvoe4oZBK7zaUPl06g53abOpDs1Bu7I6LdSmyJjMDnz7hBcBVUNtogJA" />
+                                <div
+                                    class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
+                                    <button
+                                        class="w-full py-2 bg-primary text-white text-sm font-semibold rounded-lg flex items-center justify-center gap-2">
+                                        <span class="material-icons text-sm">play_arrow</span> Watch Now
+                                    </button>
+                                </div>
+                                <button
+                                    class="absolute top-3 right-3 p-2 bg-black/40 backdrop-blur-sm text-white rounded-lg hover:text-red-500 transition-colors">
+                                    <span class="material-icons text-xl">favorite_border</span>
+                                </button>
+                            </div>
+                            <div class="mt-4 flex flex-col gap-1">
+                                <div class="flex items-center justify-between">
+                                    <h3 class="font-semibold text-slate-900 dark:text-white truncate pr-2">Neon Velocity
+                                    </h3>
+                                    <div class="flex items-center gap-1 text-amber-400">
+                                        <span class="material-icons text-sm">star</span>
+                                        <span class="text-xs font-bold text-slate-700 dark:text-slate-300">6.9</span>
+                                    </div>
+                                </div>
+                                <p class="text-xs text-slate-500 dark:text-slate-400">2024 • Action / Race</p>
+                            </div>
+                        </div>
+                        <!-- Movie Card 6 -->
+                        <div class="group flex flex-col">
+                            <div
+                                class="relative aspect-[2/3] overflow-hidden rounded-xl bg-slate-200 dark:bg-surface-dark shadow-lg">
+                                <img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                                    data-alt="Deep space galaxy nebula"
+                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuBD4Sl5LHm_Wc1R3_UAd1E18fNKM9D3W85gF6OZn1i9rlvzbKKsD4iGb-4uY-EY2eZ4-htJ98PtaAV6gmdm8QyHQsaEH3ow-gouDE_Rxow94nKcv87U1MfMVPhitooxp3w7CJQTXNjdAaNO3KwSsgfSRdXnFpUsaxzMOjn7VGVHnZjohiUFWYcx-U7W6KeJOmU2QuwucL7JGkJbTsndleytD48iXTpEwvw_MHt1f_XVdH7qQdWqJZ8KWhRzfe9DNDUECWQiqd3KD8k" />
+                                <div
+                                    class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
+                                    <button
+                                        class="w-full py-2 bg-primary text-white text-sm font-semibold rounded-lg flex items-center justify-center gap-2">
+                                        <span class="material-icons text-sm">play_arrow</span> Watch Now
+                                    </button>
+                                </div>
+                                <button
+                                    class="absolute top-3 right-3 p-2 bg-black/40 backdrop-blur-sm text-white rounded-lg hover:text-red-500 transition-colors">
+                                    <span class="material-icons text-xl">favorite_border</span>
+                                </button>
+                                <div
+                                    class="absolute top-3 left-3 px-2 py-1 bg-primary text-white text-[10px] font-bold uppercase rounded-md">
+                                    Trending</div>
+                            </div>
+                            <div class="mt-4 flex flex-col gap-1">
+                                <div class="flex items-center justify-between">
+                                    <h3 class="font-semibold text-slate-900 dark:text-white truncate pr-2">Event Horizon
+                                    </h3>
+                                    <div class="flex items-center gap-1 text-amber-400">
+                                        <span class="material-icons text-sm">star</span>
+                                        <span class="text-xs font-bold text-slate-700 dark:text-slate-300">8.7</span>
+                                    </div>
+                                </div>
+                                <p class="text-xs text-slate-500 dark:text-slate-400">2023 • Sci-Fi / Adventure</p>
+                            </div>
+                        </div>
+                        <!-- Movie Card 7 -->
+                        <div class="group flex flex-col">
+                            <div
+                                class="relative aspect-[2/3] overflow-hidden rounded-xl bg-slate-200 dark:bg-surface-dark shadow-lg">
+                                <img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                                    data-alt="Artistic mountain landscape at dusk"
+                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuCyZoRXr06KKHE3PxxLfq2KEZZ9kZshTkQ9uF7Zji-YmtuvmiqPrgP8IxbJ0cAUyLiiApcaiMaYVlqrD4HKvbHBNLiFlX8aORuLcsg-J-d4V7To7UA7RFQW4GM4JOgQJS-N1ZDBwOQ5MmcppP8riBc29OOwm6b1nSAS8BHGqaf4O89U7NBMb5AFhqM8R4pBcNxL7ST3Csl9DJAbl1pa6HE83HRynz4QihfM7WEyh6K5zOy0e-qOrPaxBxu6P3DloFDbTutZt6p5_1k" />
+                                <div
+                                    class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
+                                    <button
+                                        class="w-full py-2 bg-primary text-white text-sm font-semibold rounded-lg flex items-center justify-center gap-2">
+                                        <span class="material-icons text-sm">play_arrow</span> Watch Now
+                                    </button>
+                                </div>
+                                <button
+                                    class="absolute top-3 right-3 p-2 bg-black/40 backdrop-blur-sm text-white rounded-lg hover:text-red-500 transition-colors">
+                                    <span class="material-icons text-xl">favorite_border</span>
+                                </button>
+                            </div>
+                            <div class="mt-4 flex flex-col gap-1">
+                                <div class="flex items-center justify-between">
+                                    <h3 class="font-semibold text-slate-900 dark:text-white truncate pr-2">Summit</h3>
+                                    <div class="flex items-center gap-1 text-amber-400">
+                                        <span class="material-icons text-sm">star</span>
+                                        <span class="text-xs font-bold text-slate-700 dark:text-slate-300">7.5</span>
+                                    </div>
+                                </div>
+                                <p class="text-xs text-slate-500 dark:text-slate-400">2024 • Adventure</p>
+                            </div>
+                        </div>
+                        <!-- Movie Card 8 -->
+                        <div class="group flex flex-col">
+                            <div
+                                class="relative aspect-[2/3] overflow-hidden rounded-xl bg-slate-200 dark:bg-surface-dark shadow-lg">
+                                <img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                                    data-alt="Abstract vibrant paint swirl"
+                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuDiGRq5lswHj-l2znYa9GDnHUCga8Zj7OEZn7IeNIr712nFyrQyb_JXunjASu9hrJMGnw4kOlWZvs2VB4R4tQYOT7-9KcoRzf_v3tfBIBXz4RCxCpF7jeqgOlzSbvlL29hJz37MVuq7YUfe_IhfMJEzK0ZNzAQBcjHHbT59wSgHz8-fsM87P1QpQVzufSD786w9F3DmimYKTs9L9pWdr9UAuVUSRHUUqrfQTX-klWGRYw3H7TGofUyJxDZTCz-okLha5nVqwbl-o9U" />
+                                <div
+                                    class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
+                                    <button
+                                        class="w-full py-2 bg-primary text-white text-sm font-semibold rounded-lg flex items-center justify-center gap-2">
+                                        <span class="material-icons text-sm">play_arrow</span> Watch Now
+                                    </button>
+                                </div>
+                                <button
+                                    class="absolute top-3 right-3 p-2 bg-black/40 backdrop-blur-sm text-white rounded-lg hover:text-red-500 transition-colors">
+                                    <span class="material-icons text-xl">favorite_border</span>
+                                </button>
+                            </div>
+                            <div class="mt-4 flex flex-col gap-1">
+                                <div class="flex items-center justify-between">
+                                    <h3 class="font-semibold text-slate-900 dark:text-white truncate pr-2">Prism Bloom
+                                    </h3>
+                                    <div class="flex items-center gap-1 text-amber-400">
+                                        <span class="material-icons text-sm">star</span>
+                                        <span class="text-xs font-bold text-slate-700 dark:text-slate-300">8.0</span>
+                                    </div>
+                                </div>
+                                <p class="text-xs text-slate-500 dark:text-slate-400">2023 • Animation</p>
+                            </div>
+                        </div>
+                        <!-- Movie Card 9 -->
+                        <div class="group flex flex-col">
+                            <div
+                                class="relative aspect-[2/3] overflow-hidden rounded-xl bg-slate-200 dark:bg-surface-dark shadow-lg">
+                                <img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                                    data-alt="Foggy forest road at night"
+                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuChj3rOIuUTTpFvFIPISFBXD_i1vOFd9XEn79ZDA39aFdtIycT3s7FsjChmcfN8ihZHhIL6I4Kox2mZoWC33-8pECswjoFeGneD2uSywEjpQccE574gvFhlhgLf1GKiETxg5nFuJIMmlWHga8CCoC2JM21_qlXoVUxWMMXsxgBwGWr5cByl5IOwstYEADadUkk6pxQdIC38sZiSbEeRaxO26Qo4AH0GE04dZvhC0VlyqRTXn6T9url_jtcH82_4dQt1PRMp6U4X5pg" />
+                                <div
+                                    class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
+                                    <button
+                                        class="w-full py-2 bg-primary text-white text-sm font-semibold rounded-lg flex items-center justify-center gap-2">
+                                        <span class="material-icons text-sm">play_arrow</span> Watch Now
+                                    </button>
+                                </div>
+                                <button
+                                    class="absolute top-3 right-3 p-2 bg-black/40 backdrop-blur-sm text-white rounded-lg hover:text-red-500 transition-colors">
+                                    <span class="material-icons text-xl">favorite_border</span>
+                                </button>
+                            </div>
+                            <div class="mt-4 flex flex-col gap-1">
+                                <div class="flex items-center justify-between">
+                                    <h3 class="font-semibold text-slate-900 dark:text-white truncate pr-2">Midnight Fog
+                                    </h3>
+                                    <div class="flex items-center gap-1 text-amber-400">
+                                        <span class="material-icons text-sm">star</span>
+                                        <span class="text-xs font-bold text-slate-700 dark:text-slate-300">7.2</span>
+                                    </div>
+                                </div>
+                                <p class="text-xs text-slate-500 dark:text-slate-400">2024 • Horror / Suspense</p>
+                            </div>
+                        </div>
+                        <!-- Movie Card 10 -->
+                        <div class="group flex flex-col">
+                            <div
+                                class="relative aspect-[2/3] overflow-hidden rounded-xl bg-slate-200 dark:bg-surface-dark shadow-lg">
+                                <img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                                    data-alt="Digital eye scanning technology"
+                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuAK8yIrqH4RfxTBHcK5lzy9VjzXaMNeit4380q7fVTc8fOxmdvFSh9BCnx1eo9oGl-zrCBjst2VLQqdDx8SSEJ8u3fc1JMwyKzhN-TC5NuMZ6fFYiCQP3V8rEolmKkm1RG6KHi3tCn-xzmyGJYxasllkV05jQmJjBggldzWZjI2gdAF8yJBaFyAAPE4LQxFBBo_7FAjbUS8JgO_5VR987HxOpm0f4O9r0AAwMhLxD7Et3nCuSkutH7z4vgj7QfsaIqRJidXnEi_jd8" />
+                                <div
+                                    class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
+                                    <button
+                                        class="w-full py-2 bg-primary text-white text-sm font-semibold rounded-lg flex items-center justify-center gap-2">
+                                        <span class="material-icons text-sm">play_arrow</span> Watch Now
+                                    </button>
+                                </div>
+                                <button
+                                    class="absolute top-3 right-3 p-2 bg-black/40 backdrop-blur-sm text-white rounded-lg hover:text-red-500 transition-colors">
+                                    <span class="material-icons text-xl">favorite_border</span>
+                                </button>
+                            </div>
+                            <div class="mt-4 flex flex-col gap-1">
+                                <div class="flex items-center justify-between">
+                                    <h3 class="font-semibold text-slate-900 dark:text-white truncate pr-2">Network X
+                                    </h3>
+                                    <div class="flex items-center gap-1 text-amber-400">
+                                        <span class="material-icons text-sm">star</span>
+                                        <span class="text-xs font-bold text-slate-700 dark:text-slate-300">8.9</span>
+                                    </div>
+                                </div>
+                                <p class="text-xs text-slate-500 dark:text-slate-400">2023 • Tech Thriller</p>
+                            </div>
+                        </div>
+                        <!-- Movie Card 11 -->
+                        <div class="group flex flex-col">
+                            <div
+                                class="relative aspect-[2/3] overflow-hidden rounded-xl bg-slate-200 dark:bg-surface-dark shadow-lg">
+                                <img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                                    data-alt="Sunset over a calm beach"
+                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuD_ex-ueX78b5FPtxwAPyzVTR3G93wmNCK_O7NLhDmo5iWQ89IvhaA4eURYW0VU-Znv4tZCEPxAD7jtdBrs7ee7wJeInxDKZMgC_TyaLJK4M5dbuAYYZLdZdmKQ8XYYotxxKarqjQIwihfgdKKyI7HadY-zzDWyh-JYP3dqJJj9m3fueVAgREfTLoLb_0m4ltiOxNqO6e7xrE5S9y8eM9Fe6NNWylHBL1tCqS4lNFUMorme3kPv9UgJBTEp-iWmz6AYJBs4iHxWYgE" />
+                                <div
+                                    class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
+                                    <button
+                                        class="w-full py-2 bg-primary text-white text-sm font-semibold rounded-lg flex items-center justify-center gap-2">
+                                        <span class="material-icons text-sm">play_arrow</span> Watch Now
+                                    </button>
+                                </div>
+                                <button
+                                    class="absolute top-3 right-3 p-2 bg-black/40 backdrop-blur-sm text-white rounded-lg hover:text-red-500 transition-colors">
+                                    <span class="material-icons text-xl">favorite_border</span>
+                                </button>
+                            </div>
+                            <div class="mt-4 flex flex-col gap-1">
+                                <div class="flex items-center justify-between">
+                                    <h3 class="font-semibold text-slate-900 dark:text-white truncate pr-2">Ocean Waves
+                                    </h3>
+                                    <div class="flex items-center gap-1 text-amber-400">
+                                        <span class="material-icons text-sm">star</span>
+                                        <span class="text-xs font-bold text-slate-700 dark:text-slate-300">7.6</span>
+                                    </div>
+                                </div>
+                                <p class="text-xs text-slate-500 dark:text-slate-400">2024 • Romance</p>
+                            </div>
+                        </div>
+                        <!-- Movie Card 12 -->
+                        <div class="group flex flex-col">
+                            <div
+                                class="relative aspect-[2/3] overflow-hidden rounded-xl bg-slate-200 dark:bg-surface-dark shadow-lg">
+                                <img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                                    data-alt="Dark mysterious corridor"
+                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuAbP_KLOhcw3P8rQZ-2q7r7i410gMmAQNQ22wutc_SHqJra4Evs7M-6cBn7TMaHiP0hq_4c5JEiFV8ZWWpPcvfQrcDhVxwOO5Z-vjlNI_e_mvAYW2GJmsV3ldv-uyb_OPmtAFTvaQgQX4EKyAtlbN6knFQm7jqUb6PTEZxvF5zWeN0hrpHSCFmoHxaPZXxgJr-JgIcF1cbTGZnq1l-Xg1VbKW1TyLa83Tpeup-SLeFO2x5_w5R_pWzSeCO1nGPGhaUZxNvCd8Od7NA" />
+                                <div
+                                    class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
+                                    <button
+                                        class="w-full py-2 bg-primary text-white text-sm font-semibold rounded-lg flex items-center justify-center gap-2">
+                                        <span class="material-icons text-sm">play_arrow</span> Watch Now
+                                    </button>
+                                </div>
+                                <button
+                                    class="absolute top-3 right-3 p-2 bg-black/40 backdrop-blur-sm text-white rounded-lg hover:text-red-500 transition-colors">
+                                    <span class="material-icons text-xl">favorite_border</span>
+                                </button>
+                            </div>
+                            <div class="mt-4 flex flex-col gap-1">
+                                <div class="flex items-center justify-between">
+                                    <h3 class="font-semibold text-slate-900 dark:text-white truncate pr-2">Sector 7</h3>
+                                    <div class="flex items-center gap-1 text-amber-400">
+                                        <span class="material-icons text-sm">star</span>
+                                        <span class="text-xs font-bold text-slate-700 dark:text-slate-300">8.1</span>
+                                    </div>
+                                </div>
+                                <p class="text-xs text-slate-500 dark:text-slate-400">2024 • Action</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Footer -->
+                    <footer class="mt-16 py-8 border-t border-slate-200 dark:border-border-dark">
+                        <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+                            <div class="flex items-center gap-2 opacity-60">
+                                <span class="material-icons text-xl">movie_filter</span>
+                                <span class="text-sm font-bold">CineTrack</span>
+                            </div>
+                            <div class="text-sm text-slate-500 dark:text-slate-400">
+                                © 2024 CineTrack. All rights reserved.
+                            </div>
+                            <div class="flex items-center gap-6 text-sm text-slate-500 dark:text-slate-400">
+                                <a class="hover:text-primary transition-colors" href="#">Privacy Policy</a>
+                                <a class="hover:text-primary transition-colors" href="#">Terms of Service</a>
+                                <a class="hover:text-primary transition-colors" href="#">Help Center</a>
+                            </div>
+                        </div>
+                    </footer>
+                </div>
+            </main>
+        </div>
+    </div>
+</body>
+
+</html>

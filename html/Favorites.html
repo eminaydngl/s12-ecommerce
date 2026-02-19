@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>CineTrack - My Favorites</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700&amp;display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#1152d4",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#101622",
+                    },
+                    fontFamily: {
+                        "display": ["Be Vietnam Pro"]
+                    },
+                    borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Be Vietnam Pro', sans-serif;
+        }
+
+        .media-card:hover img {
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 selection:bg-primary/30">
+    <div class="flex min-h-screen">
+        <aside
+            class="w-64 border-r border-slate-200 dark:border-slate-800/50 flex flex-col sticky top-0 h-screen bg-background-light dark:bg-background-dark z-50">
+            <div class="p-8">
+                <div class="flex items-center gap-2 text-primary font-bold text-2xl tracking-tight">
+                    <span class="material-icons text-3xl">movie</span>
+                    <span>CineTrack</span>
+                </div>
+            </div>
+            <nav class="flex-1 px-4 space-y-1">
+                <a class="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-primary/10 transition-colors"
+                    href="#">
+                    <span class="material-icons">home</span>
+                    <span class="font-medium">Home</span>
+                </a>
+                <a class="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-primary/10 transition-colors"
+                    href="#">
+                    <span class="material-icons">live_tv</span>
+                    <span class="font-medium">All TV Series</span>
+                </a>
+                <a class="flex items-center gap-3 px-4 py-3 rounded-lg bg-primary/10 text-primary transition-colors"
+                    href="#">
+                    <span class="material-icons">favorite</span>
+                    <span class="font-medium">Favorites</span>
+                </a>
+            </nav>
+            <div class="p-4 border-t border-slate-200 dark:border-slate-800/50">
+                <div class="flex items-center gap-3 p-2 rounded-xl bg-slate-100 dark:bg-slate-800/40">
+                    <img alt="User profile portrait" class="w-10 h-10 rounded-lg object-cover"
+                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuAot2fnn5wCZqetHAkzY2aOmoy9n-Q_IE3dDo7-Y-bXmndLh6svl2innUiecw2OrbPdidIJkfMMce2he_rpC4HeUIx5EWy0r5T1SV8yZ-U9-DE1G4bkMBHO8RySeOF7W_9ZJlzXZcEFuaJ3qc1pM_z9sOvNVhlfPnQjaBnoQA6OcLQhkGPoweTJ4ryyYTFV0OkTgllbklYmfxhh4eux3s3_qpfR0ZttVsotZOGxZC7tjWMFVM0ejKJzsYMT__LwSAY3OY1ijO4hVRs" />
+                    <div class="overflow-hidden">
+                        <p class="text-sm font-semibold truncate">Alex Rivera</p>
+                        <p class="text-xs text-slate-500 truncate">Premium Member</p>
+                    </div>
+                </div>
+            </div>
+        </aside>
+        <main class="flex-1 min-w-0 flex flex-col bg-background-light dark:bg-background-dark">
+            <header
+                class="h-20 flex items-center justify-between px-8 border-b border-slate-200 dark:border-slate-800/50 sticky top-0 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md z-40">
+                <div class="relative w-full max-w-xl group">
+                    <span
+                        class="material-icons absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-primary transition-colors">search</span>
+                    <input
+                        class="w-full bg-slate-100 dark:bg-slate-800/40 border-none rounded-xl py-2.5 pl-12 pr-4 focus:ring-2 focus:ring-primary/50 text-sm transition-all"
+                        placeholder="Search in favorites..." type="text" />
+                </div>
+                <div class="flex items-center gap-4">
+                    <button
+                        class="w-10 h-10 rounded-xl bg-slate-100 dark:bg-slate-800/40 flex items-center justify-center text-slate-500 hover:text-primary transition-colors"
+                        onclick="document.documentElement.classList.toggle('dark')">
+                        <span class="material-symbols-outlined text-xl">dark_mode</span>
+                    </button>
+                    <button
+                        class="w-10 h-10 rounded-xl bg-slate-100 dark:bg-slate-800/40 flex items-center justify-center text-slate-500 hover:text-primary transition-colors">
+                        <span class="material-icons text-xl">notifications</span>
+                    </button>
+                </div>
+            </header>
+            <div class="p-8 flex-1">
+                <div class="mb-8">
+                    <h1 class="text-3xl font-bold tracking-tight">My Favorites</h1>
+                    <p class="text-slate-500 dark:text-slate-400 mt-1">24 Titles</p>
+                </div>
+                <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-6 mb-12">
+                    <div
+                        class="group media-card relative bg-slate-100 dark:bg-slate-800/40 rounded-xl overflow-hidden shadow-sm hover:shadow-xl hover:shadow-primary/5 transition-all duration-300">
+                        <div class="aspect-[2/3] overflow-hidden relative">
+                            <img alt="Cinematic space nebula movie poster background"
+                                class="w-full h-full object-cover transition-transform duration-500"
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuDYM6sXyHXmbSW-M_bp67uduaD7EITzMNKCTF3_V5RllUNi1LvyFYf-wXq4mJwO3nMeO7Qrcg4rCVzZveuLNXGY8h10pNEu7PVBe4HT2wxUes8elc8DSfpejOYm9uRqajEhNVK4NJPgDDO8Rb_KyuxbDN4RCqWZMoGKEr0W_HCVb2g68YDgrAK2vN5-IMJmNhX_tDWD2l5ST1a5ifhJR1JKv6G0Cl3KIaFp11PJELFDF_dPedZFFpaiwQnEOwXWiqFQr448WNTViMY" />
+                            <button
+                                class="absolute top-3 right-3 px-3 py-1.5 rounded-full bg-white/90 dark:bg-slate-900/90 text-red-500 text-xs font-semibold backdrop-blur shadow-sm hover:bg-red-500 hover:text-white transition-all flex items-center gap-1.5">
+                                <span class="material-icons text-sm">close</span> Remove
+                            </button>
+                        </div>
+                        <div class="p-3">
+                            <h3 class="font-semibold text-sm truncate group-hover:text-primary transition-colors">Beyond
+                                the Stars</h3>
+                            <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">2023 • Movie</p>
+                        </div>
+                    </div>
+                    <div
+                        class="group media-card relative bg-slate-100 dark:bg-slate-800/40 rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300">
+                        <div class="aspect-[2/3] overflow-hidden relative">
+                            <img alt="Dark moody noir style movie poster"
+                                class="w-full h-full object-cover transition-transform duration-500"
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuCGZQThV9OLjiF7K1sPK9XkviETM4UaQIeQSG6DzxtLHcP-WL8cWgk8jo1ikeFVHH4eALcplqIcLtY1Dp6XlYf7ecTUZpYNlOnedjfP8mw1CoDmPNRrFcdBDPG4yRFilXkM8hmL0c09tRQNX1X4vzr5TA_anrYuPoG9an22PAcfG-ZFFap3ilqLH8b7NJ0zejn-kMPitAUixj0jNgF7rq9NV7uGm5PWoWFWpxZWUSTbldMP69tn5MpWWbXOGmUTWT__g7s4tHgdaec" />
+                            <button
+                                class="absolute top-3 right-3 px-3 py-1.5 rounded-full bg-white/90 dark:bg-slate-900/90 text-red-500 text-xs font-semibold backdrop-blur shadow-sm hover:bg-red-500 hover:text-white transition-all flex items-center gap-1.5">
+                                <span class="material-icons text-sm">close</span> Remove
+                            </button>
+                        </div>
+                        <div class="p-3">
+                            <h3 class="font-semibold text-sm truncate group-hover:text-primary transition-colors">Shadow
+                                Protocol</h3>
+                            <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">2022 • TV Series</p>
+                        </div>
+                    </div>
+                    <div
+                        class="group media-card relative bg-slate-100 dark:bg-slate-800/40 rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300">
+                        <div class="aspect-[2/3] overflow-hidden relative">
+                            <img alt="Neon city cinematic atmosphere movie poster"
+                                class="w-full h-full object-cover transition-transform duration-500"
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuA9qEeslEQbzexDweJKbEreyVFILTkMX3CfTVs6Kp-_fBOe5ob5sCYZ2r4pOHBboImgLDwrGIuocohMGBwDtlE6QerTRXGUmPUBQiFkXs7YABrGZS8oCXeEmoJtMHR2JAAyHJHDAPr5_ndLj-nXe7JulFMCMs-D5gZf7u_AUc47NaTfLJBaPgsdqNCgHkZNmU5sKz9gGFBlMzuNFDOBfebLhRj0ANTBEMBRLJYPE6-E7PgpcUamBnxvAR4rZz_x5Vjhu1JmWZthlOY" />
+                            <button
+                                class="absolute top-3 right-3 px-3 py-1.5 rounded-full bg-white/90 dark:bg-slate-900/90 text-red-500 text-xs font-semibold backdrop-blur shadow-sm hover:bg-red-500 hover:text-white transition-all flex items-center gap-1.5">
+                                <span class="material-icons text-sm">close</span> Remove
+                            </button>
+                        </div>
+                        <div class="p-3">
+                            <h3 class="font-semibold text-sm truncate group-hover:text-primary transition-colors">Neon
+                                Nights</h3>
+                            <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">2024 • Movie</p>
+                        </div>
+                    </div>
+                    <div
+                        class="group media-card relative bg-slate-100 dark:bg-slate-800/40 rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300">
+                        <div class="aspect-[2/3] overflow-hidden relative">
+                            <img alt="Vintage style cinematic adventure poster"
+                                class="w-full h-full object-cover transition-transform duration-500"
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuCJf988oUvPsdyKPcGsQ4ivahheoiP41yAcIHNzzYB0nDe3cnTS_Axv8e9la_M-TJXqrp2aB4xW7pwM7MShLAoUVhTe56r2YNMVy4O9f9SDObEe_G-J4Cqfkk03jzYfhAz8qQflMiRcBfIwLQ3xumOZcArLJK8Co_1N8B1yEJ7t1WK29YG0q8VWfyCLrz4frxZMrqkY7eeu36iGikBLQ7H-_pLqeSlBA6FX24MIfz_pfhaXi_eXoX7FGMwxfD3Xh0hCnryEW0T-_Jo" />
+                            <button
+                                class="absolute top-3 right-3 px-3 py-1.5 rounded-full bg-white/90 dark:bg-slate-900/90 text-red-500 text-xs font-semibold backdrop-blur shadow-sm hover:bg-red-500 hover:text-white transition-all flex items-center gap-1.5">
+                                <span class="material-icons text-sm">close</span> Remove
+                            </button>
+                        </div>
+                        <div class="p-3">
+                            <h3 class="font-semibold text-sm truncate group-hover:text-primary transition-colors">The
+                                Last Expedition</h3>
+                            <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">2023 • Movie</p>
+                        </div>
+                    </div>
+                    <div
+                        class="group media-card relative bg-slate-100 dark:bg-slate-800/40 rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300">
+                        <div class="aspect-[2/3] overflow-hidden relative">
+                            <img alt="Abstract art cinema movie poster"
+                                class="w-full h-full object-cover transition-transform duration-500"
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuB-tX7Tjur7TrkvOYdBc0u5mcp3y6EqTLU5hGwUDY1oS3UDVQzpSqbHRBkNcutOcq9GR7RiwpWkmMev8ifNeqSuy339ubpY7mAfsbNXIvWFFaCxMQMROG4NvoeWBtstU4RJfPh8BwC7_WffiDMqpULD0ytawpEsplnS_ra4ioTOSHrKOuWdcKqMar8kwBcdUHQyXUcIqA0LDBo009SA8owQCvbQyqgHgu4xRTDh1PIOturgx1-opsq74IcwKuon_XPBQmDCDABLvQM" />
+                            <button
+                                class="absolute top-3 right-3 px-3 py-1.5 rounded-full bg-white/90 dark:bg-slate-900/90 text-red-500 text-xs font-semibold backdrop-blur shadow-sm hover:bg-red-500 hover:text-white transition-all flex items-center gap-1.5">
+                                <span class="material-icons text-sm">close</span> Remove
+                            </button>
+                        </div>
+                        <div class="p-3">
+                            <h3 class="font-semibold text-sm truncate group-hover:text-primary transition-colors">Silent
+                                Echoes</h3>
+                            <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">2021 • TV Series</p>
+                        </div>
+                    </div>
+                    <div
+                        class="group media-card relative bg-slate-100 dark:bg-slate-800/40 rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300">
+                        <div class="aspect-[2/3] overflow-hidden relative">
+                            <img alt="Dramatic mountain landscape cinematic poster"
+                                class="w-full h-full object-cover transition-transform duration-500"
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuAgy_kXluYJc17s2rVK2c60yI8Kjb28OYeof_bGojlr_pOW5EjMXRg89dEITanbap2FlBESemPsYcxgPPfTK6pLsP-6ZauXbOkEG7E-Ea5VV3Axyxuj-A4pIznyrcnjcRn78YYVHCmFu6KhFE7h9WONY5TfxmExjqgPiMt_0xrTOvPLaTQZ2XBHqMSDtJV18X6RZ5DjztL60W5ZuTha4lutdhp4dw1PBcTtZNVYRcs71p2xDRFohDES-W-Rt4t8uSDMCShOvG0apZI" />
+                            <button
+                                class="absolute top-3 right-3 px-3 py-1.5 rounded-full bg-white/90 dark:bg-slate-900/90 text-red-500 text-xs font-semibold backdrop-blur shadow-sm hover:bg-red-500 hover:text-white transition-all flex items-center gap-1.5">
+                                <span class="material-icons text-sm">close</span> Remove
+                            </button>
+                        </div>
+                        <div class="p-3">
+                            <h3 class="font-semibold text-sm truncate group-hover:text-primary transition-colors">
+                                Mountain Peaks</h3>
+                            <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">2024 • Movie</p>
+                        </div>
+                    </div>
+                    <div
+                        class="group media-card relative bg-slate-100 dark:bg-slate-800/40 rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300">
+                        <div class="aspect-[2/3] overflow-hidden relative">
+                            <img alt="Cyberpunk high contrast movie poster"
+                                class="w-full h-full object-cover transition-transform duration-500"
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuAx4aH7nPOj9DfIEo2au1LCZwwlVwBNLMUW-mqVg-T0hfHVSY8k4_uxCMd5HvpBicgBc2MpGt5WmxCAWA-l76YyrRRhPDE_o6HMIbD-iVBXv9IywRu6lWmUrauthRHhTudBep-4MwYDA7LZ98ICQBSlSd6z2DQiL02M6HdNwrtYN7DigfoTlBd97Pvon1pBEyRQtO8Ne-d9p179UEjiLrAjiypmEPVyF1Fnv8I7E1hxe2ouTGfuhoNCyYgipRDL8iM6UUkmJ21bMjg" />
+                            <button
+                                class="absolute top-3 right-3 px-3 py-1.5 rounded-full bg-white/90 dark:bg-slate-900/90 text-red-500 text-xs font-semibold backdrop-blur shadow-sm hover:bg-red-500 hover:text-white transition-all flex items-center gap-1.5">
+                                <span class="material-icons text-sm">close</span> Remove
+                            </button>
+                        </div>
+                        <div class="p-3">
+                            <h3 class="font-semibold text-sm truncate group-hover:text-primary transition-colors">
+                                Circuit Runner</h3>
+                            <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">2023 • Movie</p>
+                        </div>
+                    </div>
+                    <div
+                        class="group media-card relative bg-slate-100 dark:bg-slate-800/40 rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300">
+                        <div class="aspect-[2/3] overflow-hidden relative">
+                            <img alt="Dramatic thriller movie poster background"
+                                class="w-full h-full object-cover transition-transform duration-500"
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuCfTA5xCAUqM_RM0ectbGJw7UCqAKWe-ImOzKrDy9tnrd8kR0d9EBipj2FOQwKAGDs7JfhOgc9ktoZlukJTstrucCMMZZ5ulcBjN8rZFeWdAmC1XAZW33mVMt4OEWhRf2OiuJ5d78BXvuoadW9Cv4RjRO-kL5Nt0pfj22fa_JqodJ67eFvMqVBOXJpIVG9pn3Nng4Rq6VyIULa1N1XDds2x_b_Kin-RlT0X5_78uwV8DvaHWuPWSHzi8WnWrgSeaJKAn0v9pHYz-6w" />
+                            <button
+                                class="absolute top-3 right-3 px-3 py-1.5 rounded-full bg-white/90 dark:bg-slate-900/90 text-red-500 text-xs font-semibold backdrop-blur shadow-sm hover:bg-red-500 hover:text-white transition-all flex items-center gap-1.5">
+                                <span class="material-icons text-sm">close</span> Remove
+                            </button>
+                        </div>
+                        <div class="p-3">
+                            <h3 class="font-semibold text-sm truncate group-hover:text-primary transition-colors">Cold
+                                Pursuit</h3>
+                            <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">2022 • Movie</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <footer class="mt-auto border-t border-slate-200 dark:border-slate-800/50 py-6 px-8">
+                <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+                    <p class="text-xs text-slate-500 dark:text-slate-400">© 2024 CineTrack Premium. All rights reserved.
+                    </p>
+                    <div class="flex items-center gap-6">
+                        <a class="text-xs text-slate-500 hover:text-primary transition-colors" href="#">Privacy
+                            Policy</a>
+                        <a class="text-xs text-slate-500 hover:text-primary transition-colors" href="#">Terms of
+                            Service</a>
+                        <a class="text-xs text-slate-500 hover:text-primary transition-colors" href="#">Contact</a>
+                        <div class="flex gap-3 ml-4">
+                            <a class="text-slate-400 hover:text-primary transition-colors" href="#"><span
+                                    class="material-icons text-lg">language</span></a>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </main>
+    </div>
+
+</body>
+
+</html>

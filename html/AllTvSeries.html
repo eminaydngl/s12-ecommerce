@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>CineTrack - All TV Series</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700&amp;display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#1152d4",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#101622",
+                        "midnight-accent": "#1a2236",
+                    },
+                    fontFamily: {
+                        "display": ["Be Vietnam Pro"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Be Vietnam Pro', sans-serif;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: rgba(17, 82, 212, 0.2);
+            border-radius: 10px;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: rgba(17, 82, 212, 0.4);
+        }
+    </style>
+</head>
+
+<body
+    class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 font-display transition-colors duration-300">
+    <div class="flex min-h-screen">
+        <!-- Sidebar -->
+        <aside
+            class="w-64 fixed inset-y-0 left-0 bg-white dark:bg-background-dark border-r border-slate-200 dark:border-primary/10 flex flex-col z-50">
+            <div class="p-6">
+                <div class="flex items-center gap-2 text-primary">
+                    <span class="material-icons text-3xl">movie_filter</span>
+                    <span class="text-xl font-bold tracking-tight">CineTrack</span>
+                </div>
+            </div>
+            <nav class="flex-1 px-4 mt-4 space-y-1">
+                <a class="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-primary/10 hover:text-primary transition-all group"
+                    href="#">
+                    <span class="material-icons">home</span>
+                    <span class="font-medium">Home</span>
+                </a>
+                <a class="flex items-center gap-3 px-4 py-3 rounded-lg bg-primary text-white shadow-lg shadow-primary/30"
+                    href="#">
+                    <span class="material-icons">tv</span>
+                    <span class="font-medium">All TV Series</span>
+                </a>
+                <a class="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-primary/10 hover:text-primary transition-all group"
+                    href="#">
+                    <span class="material-icons">favorite</span>
+                    <span class="font-medium">Favorites</span>
+                </a>
+                <div class="pt-8 pb-4 px-4">
+                    <p class="text-xs font-semibold uppercase tracking-wider text-slate-400 dark:text-slate-600">
+                        Discover</p>
+                </div>
+                <a class="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-primary/10 hover:text-primary transition-all group"
+                    href="#">
+                    <span class="material-icons">trending_up</span>
+                    <span class="font-medium">Trending Now</span>
+                </a>
+                <a class="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-primary/10 hover:text-primary transition-all group"
+                    href="#">
+                    <span class="material-icons">calendar_month</span>
+                    <span class="font-medium">Release Calendar</span>
+                </a>
+            </nav>
+            <div class="p-4 border-t border-slate-200 dark:border-primary/10">
+                <div class="bg-primary/5 dark:bg-primary/10 rounded-xl p-4">
+                    <p class="text-xs text-slate-500 dark:text-slate-400 font-medium">Signed in as</p>
+                    <div class="flex items-center gap-3 mt-2">
+                        <div
+                            class="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-white text-xs font-bold">
+                            JD</div>
+                        <div class="overflow-hidden">
+                            <p class="text-sm font-bold truncate">John Doe</p>
+                            <p class="text-[10px] text-slate-500 dark:text-slate-400 uppercase tracking-wide">Premium
+                                User</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+        <!-- Main Content Area -->
+        <main class="flex-1 ml-64 flex flex-col h-screen overflow-hidden">
+            <!-- Header -->
+            <header
+                class="h-20 bg-white/80 dark:bg-midnight-accent/80 backdrop-blur-md border-b border-slate-200 dark:border-primary/10 flex items-center justify-between px-8 sticky top-0 z-40">
+                <div class="flex-1 max-w-2xl">
+                    <div class="relative group">
+                        <span
+                            class="material-icons absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-primary transition-colors">search</span>
+                        <input
+                            class="w-full bg-slate-100 dark:bg-background-dark/50 border-none rounded-xl py-3 pl-12 pr-4 focus:ring-2 focus:ring-primary/50 text-sm transition-all outline-none"
+                            placeholder="Search for series, genres, or years..." type="text" />
+                    </div>
+                </div>
+                <div class="flex items-center gap-4 ml-8">
+                    <button
+                        class="w-10 h-10 flex items-center justify-center rounded-xl bg-slate-100 dark:bg-background-dark/50 text-slate-500 dark:text-slate-400 hover:text-primary transition-colors">
+                        <span class="material-icons text-xl">notifications</span>
+                    </button>
+                    <button
+                        class="w-10 h-10 flex items-center justify-center rounded-xl bg-slate-100 dark:bg-background-dark/50 text-slate-500 dark:text-slate-400 hover:text-primary transition-colors">
+                        <span class="material-icons text-xl">dark_mode</span>
+                    </button>
+                    <div class="h-8 w-[1px] bg-slate-200 dark:bg-primary/20 mx-2"></div>
+                    <button
+                        class="flex items-center gap-2 bg-primary px-4 py-2 rounded-lg text-white font-medium text-sm hover:bg-primary/90 transition-colors shadow-lg shadow-primary/20">
+                        <span class="material-icons text-sm">settings</span>
+                        Manage
+                    </button>
+                </div>
+            </header>
+            <!-- Scrollable Content -->
+            <div class="flex-1 overflow-y-auto custom-scrollbar bg-background-light dark:bg-background-dark">
+                <div class="p-8 max-w-[1600px] mx-auto">
+                    <!-- Section Title -->
+                    <div class="flex items-end justify-between mb-8">
+                        <div>
+                            <div class="flex items-center gap-3 mb-1">
+                                <h1 class="text-3xl font-bold tracking-tight">All TV Series</h1>
+                                <span class="bg-primary/20 text-primary text-xs font-bold px-2 py-1 rounded-md mt-1">124
+                                    SHOWS</span>
+                            </div>
+                            <p class="text-slate-500 dark:text-slate-400">Browse through our complete library of
+                                television masterpieces.</p>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <button
+                                class="flex items-center gap-2 px-4 py-2 bg-white dark:bg-midnight-accent border border-slate-200 dark:border-primary/10 rounded-lg text-sm font-medium hover:border-primary transition-all">
+                                <span class="material-icons text-sm">filter_list</span>
+                                Filter
+                            </button>
+                            <button
+                                class="flex items-center gap-2 px-4 py-2 bg-white dark:bg-midnight-accent border border-slate-200 dark:border-primary/10 rounded-lg text-sm font-medium hover:border-primary transition-all">
+                                <span class="material-icons text-sm">sort</span>
+                                Popularity
+                            </button>
+                        </div>
+                    </div>
+                    <!-- Series Grid -->
+                    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-6">
+                        <!-- Card 1 -->
+                        <div class="group cursor-pointer">
+                            <div
+                                class="relative aspect-[2/3] rounded-xl overflow-hidden mb-3 shadow-lg transition-transform duration-300 group-hover:-translate-y-2">
+                                <img class="w-full h-full object-cover"
+                                    data-alt="Poster for a dark gritty crime drama show"
+                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuDcu5B5hI-6MoFX-umrHXCBfraleO1hszGcv9tpo5B0zmk4WQCeu28DF8_UC3R6EIcupTdvEtdFOPY2N9uNcc30pzhABlvpVEnxqNy-CdBfK57jxFEKwmLyIYVkNRF4B2ldRbDZdaQJUtpolwHjyIJRJqh3nO82p8NAmrXaacjwx_Q8TE6IVP9573NsJnyvYtiEr9Or9qkC8meY7h41v6sXjeEw6rdZao-0rW7PvTxtR06gOAzAAOb3CYg7CtvxRM5Sxx8L_kluc-Y" />
+                                <div
+                                    class="absolute inset-0 bg-gradient-to-t from-background-dark/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-4">
+                                    <button
+                                        class="w-full py-2 bg-primary text-white rounded-lg text-sm font-bold mb-2 flex items-center justify-center gap-2">
+                                        <span class="material-icons text-sm">play_arrow</span>
+                                        Details
+                                    </button>
+                                </div>
+                                <div class="absolute top-3 right-3">
+                                    <button
+                                        class="w-8 h-8 rounded-full bg-black/40 backdrop-blur-md flex items-center justify-center text-white hover:text-red-500 transition-colors">
+                                        <span class="material-icons text-lg">favorite_border</span>
+                                    </button>
+                                </div>
+                            </div>
+                            <h3
+                                class="font-bold text-slate-800 dark:text-slate-200 truncate group-hover:text-primary transition-colors">
+                                Breaking Bad</h3>
+                            <div class="flex items-center gap-2 mt-1">
+                                <div class="flex items-center text-yellow-500">
+                                    <span class="material-icons text-xs">star</span>
+                                    <span class="text-xs font-bold ml-1">4.9</span>
+                                </div>
+                                <span class="text-[10px] text-slate-400 uppercase tracking-widest font-bold">Crime •
+                                    Drama</span>
+                            </div>
+                        </div>
+                        <!-- Card 2 -->
+                        <div class="group cursor-pointer">
+                            <div
+                                class="relative aspect-[2/3] rounded-xl overflow-hidden mb-3 shadow-lg transition-transform duration-300 group-hover:-translate-y-2">
+                                <img class="w-full h-full object-cover" data-alt="Poster for a sci-fi mystery series"
+                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuAsS2c4e4URrhRjEcvTHtK8F-BzoWte5qSYBSSdJXn9YZE6-wle6YPhJqrK05hFHcXZjcXiTRE5Jm-3PrQo9_Oq-vu-WWunQk2biuohVYH6A0Lb82uY--bRv6Ia5QqXsTihyiB6TiYznFb8TlLmviu7xoj-U7LTHR6D5dF286nG1cDn7PWxew-oXJh_Q3bMDgwU3V6qilaNWPslDOR5y1DTBzbKVyg63y7o6_aKDq6dWqCenz6jl7g63AbaBpuyvbHfFVTKyn4shwI" />
+                                <div
+                                    class="absolute inset-0 bg-gradient-to-t from-background-dark/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-4">
+                                    <button
+                                        class="w-full py-2 bg-primary text-white rounded-lg text-sm font-bold mb-2 flex items-center justify-center gap-2">
+                                        <span class="material-icons text-sm">play_arrow</span>
+                                        Details
+                                    </button>
+                                </div>
+                                <div class="absolute top-3 right-3">
+                                    <button
+                                        class="w-8 h-8 rounded-full bg-black/40 backdrop-blur-md flex items-center justify-center text-primary transition-colors">
+                                        <span class="material-icons text-lg">favorite</span>
+                                    </button>
+                                </div>
+                            </div>
+                            <h3
+                                class="font-bold text-slate-800 dark:text-slate-200 truncate group-hover:text-primary transition-colors">
+                                Stranger Things</h3>
+                            <div class="flex items-center gap-2 mt-1">
+                                <div class="flex items-center text-yellow-500">
+                                    <span class="material-icons text-xs">star</span>
+                                    <span class="text-xs font-bold ml-1">4.7</span>
+                                </div>
+                                <span class="text-[10px] text-slate-400 uppercase tracking-widest font-bold">Sci-Fi •
+                                    Horror</span>
+                            </div>
+                        </div>
+                        <!-- Card 3 -->
+                        <div class="group cursor-pointer">
+                            <div
+                                class="relative aspect-[2/3] rounded-xl overflow-hidden mb-3 shadow-lg transition-transform duration-300 group-hover:-translate-y-2">
+                                <img class="w-full h-full object-cover" data-alt="Poster for an intense family drama"
+                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuCV5DUkNw84Jdy0uLFS4xStbH_mx8IHNoe86bh_VzUmR1YFkKErnVJ-CtAPlI73WF2_EQZ3bg8i6ThH8Ka41UvpiQjKCDz10G0chDwpAiIhqwfGWh_mQryle8f74cYfkFsFNusJW3uLgRphdYalpmGBTunsnKu5PqlFZpMYyDIs2CPWxmKMiP1XmSE5PWKxH-LumrrVA_ka1eiGzvqwJF2OTUgpxI6PY1b5u__P1rLb5QhVwNfAMpAvaecG5oGOPHxZ0Kxi8FgiDfg" />
+                                <div
+                                    class="absolute inset-0 bg-gradient-to-t from-background-dark/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-4">
+                                    <button
+                                        class="w-full py-2 bg-primary text-white rounded-lg text-sm font-bold mb-2 flex items-center justify-center gap-2">
+                                        <span class="material-icons text-sm">play_arrow</span>
+                                        Details
+                                    </button>
+                                </div>
+                                <div class="absolute top-3 right-3">
+                                    <button
+                                        class="w-8 h-8 rounded-full bg-black/40 backdrop-blur-md flex items-center justify-center text-white hover:text-red-500 transition-colors">
+                                        <span class="material-icons text-lg">favorite_border</span>
+                                    </button>
+                                </div>
+                            </div>
+                            <h3
+                                class="font-bold text-slate-800 dark:text-slate-200 truncate group-hover:text-primary transition-colors">
+                                Succession</h3>
+                            <div class="flex items-center gap-2 mt-1">
+                                <div class="flex items-center text-yellow-500">
+                                    <span class="material-icons text-xs">star</span>
+                                    <span class="text-xs font-bold ml-1">4.8</span>
+                                </div>
+                                <span class="text-[10px] text-slate-400 uppercase tracking-widest font-bold">Drama •
+                                    Business</span>
+                            </div>
+                        </div>
+                        <!-- Card 4 -->
+                        <div class="group cursor-pointer">
+                            <div
+                                class="relative aspect-[2/3] rounded-xl overflow-hidden mb-3 shadow-lg transition-transform duration-300 group-hover:-translate-y-2">
+                                <img class="w-full h-full object-cover"
+                                    data-alt="Poster for a post-apocalyptic survival series"
+                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuDKnb3A-9BBXl_YtJbtR6fNBCCWHJKK1nvURqJIu-FdcF3LuChyGJwco0sE8Zehh7n4BdEk_zYiYYjxpRLncCx-FYOmykz6OTZdr7SyUoI59x9tgXIlhxY_TfxS7dVQwNmD-E-Qej3rrTXzNZPiwGRb8UudF56vhzv6yKMNdkIuIFFDGvq8zG5G3fjpwDpe6sT5nrGcMTCsENjoAtRIRUlr5MCjqKyeQtFEzLQ2ehIJ8s80mIfaQfY2SKhWkWXxJvLhpOg6vJyp_14" />
+                                <div
+                                    class="absolute inset-0 bg-gradient-to-t from-background-dark/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-4">
+                                    <button
+                                        class="w-full py-2 bg-primary text-white rounded-lg text-sm font-bold mb-2 flex items-center justify-center gap-2">
+                                        <span class="material-icons text-sm">play_arrow</span>
+                                        Details
+                                    </button>
+                                </div>
+                                <div class="absolute top-3 right-3">
+                                    <button
+                                        class="w-8 h-8 rounded-full bg-black/40 backdrop-blur-md flex items-center justify-center text-primary transition-colors">
+                                        <span class="material-icons text-lg">favorite</span>
+                                    </button>
+                                </div>
+                            </div>
+                            <h3
+                                class="font-bold text-slate-800 dark:text-slate-200 truncate group-hover:text-primary transition-colors">
+                                The Last of Us</h3>
+                            <div class="flex items-center gap-2 mt-1">
+                                <div class="flex items-center text-yellow-500">
+                                    <span class="material-icons text-xs">star</span>
+                                    <span class="text-xs font-bold ml-1">4.9</span>
+                                </div>
+                                <span class="text-[10px] text-slate-400 uppercase tracking-widest font-bold">Drama •
+                                    Sci-Fi</span>
+                            </div>
+                        </div>
+                        <!-- Card 5 -->
+                        <div class="group cursor-pointer">
+                            <div
+                                class="relative aspect-[2/3] rounded-xl overflow-hidden mb-3 shadow-lg transition-transform duration-300 group-hover:-translate-y-2">
+                                <img class="w-full h-full object-cover" data-alt="Poster for a futuristic thriller"
+                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuAl6u9db7IpSDhCh-8u43Hu2Qs3LNaYrf2Pwnut9wHYrTCAgdh9XXdHWcp3Zp1OVpVDTgRTRqYt22P1gC1h1tT6KSbqsGu81dLd1H_zOzPv2ed1EpX0V8VNehT6Jrw0cAzuBGH9Z_imaWzGRAihk_VMucX3NYgyMe-HGyHapVvNFZRmVLThC1GnibCIoM7K6bcSFJPbhkwou9l2JA9QQUuxDH7sFyDiPt7aY0SqOBGRYaSUkIPYl8zF1Z2P1ZZVUrYBQ-KuPd6wcYc" />
+                                <div
+                                    class="absolute inset-0 bg-gradient-to-t from-background-dark/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-4">
+                                    <button
+                                        class="w-full py-2 bg-primary text-white rounded-lg text-sm font-bold mb-2 flex items-center justify-center gap-2">
+                                        <span class="material-icons text-sm">play_arrow</span>
+                                        Details
+                                    </button>
+                                </div>
+                                <div class="absolute top-3 right-3">
+                                    <button
+                                        class="w-8 h-8 rounded-full bg-black/40 backdrop-blur-md flex items-center justify-center text-white hover:text-red-500 transition-colors">
+                                        <span class="material-icons text-lg">favorite_border</span>
+                                    </button>
+                                </div>
+                            </div>
+                            <h3
+                                class="font-bold text-slate-800 dark:text-slate-200 truncate group-hover:text-primary transition-colors">
+                                Severance</h3>
+                            <div class="flex items-center gap-2 mt-1">
+                                <div class="flex items-center text-yellow-500">
+                                    <span class="material-icons text-xs">star</span>
+                                    <span class="text-xs font-bold ml-1">4.6</span>
+                                </div>
+                                <span class="text-[10px] text-slate-400 uppercase tracking-widest font-bold">Thriller •
+                                    Mystery</span>
+                            </div>
+                        </div>
+                        <!-- Card 6 -->
+                        <div class="group cursor-pointer">
+                            <div
+                                class="relative aspect-[2/3] rounded-xl overflow-hidden mb-3 shadow-lg transition-transform duration-300 group-hover:-translate-y-2">
+                                <img class="w-full h-full object-cover"
+                                    data-alt="Poster for a period piece fantasy show"
+                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuBijNmiroMVpzz-3hgShbCwnm75AmWYXwsVPcXkgXnet_xzXMr23Pwf6Kt-4LsATQrREoAvB1JM-qhgrVTq6s38DommgcOQBOLTH8ozNkTlMFa_RZMYbQIqyB3HWNj5DV8Yl2LT-EwmXjTJoN382FZHwVpeEqlDK_Idg0HQ69SAUfHAy_JuKAf1s8fvL48-BbGSpLWDp7OZos2qs5S2GtYxUUizaE8jwc808VJl3PEMnG625zrfkrwd3K3CWITvJkaUbAD86bpOzzo" />
+                                <div
+                                    class="absolute inset-0 bg-gradient-to-t from-background-dark/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-4">
+                                    <button
+                                        class="w-full py-2 bg-primary text-white rounded-lg text-sm font-bold mb-2 flex items-center justify-center gap-2">
+                                        <span class="material-icons text-sm">play_arrow</span>
+                                        Details
+                                    </button>
+                                </div>
+                                <div class="absolute top-3 right-3">
+                                    <button
+                                        class="w-8 h-8 rounded-full bg-black/40 backdrop-blur-md flex items-center justify-center text-white hover:text-red-500 transition-colors">
+                                        <span class="material-icons text-lg">favorite_border</span>
+                                    </button>
+                                </div>
+                            </div>
+                            <h3
+                                class="font-bold text-slate-800 dark:text-slate-200 truncate group-hover:text-primary transition-colors">
+                                House of the Dragon</h3>
+                            <div class="flex items-center gap-2 mt-1">
+                                <div class="flex items-center text-yellow-500">
+                                    <span class="material-icons text-xs">star</span>
+                                    <span class="text-xs font-bold ml-1">4.5</span>
+                                </div>
+                                <span class="text-[10px] text-slate-400 uppercase tracking-widest font-bold">Fantasy •
+                                    Action</span>
+                            </div>
+                        </div>
+                        <!-- Card 7 -->
+                        <div class="group cursor-pointer">
+                            <div
+                                class="relative aspect-[2/3] rounded-xl overflow-hidden mb-3 shadow-lg transition-transform duration-300 group-hover:-translate-y-2">
+                                <img class="w-full h-full object-cover" data-alt="Poster for a psychological thriller"
+                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuC2hRbl33hOC9h6ESnVhyUqd44sZAktBrexaqVTCeLG50otQgHEIs5ZixrMOefP95aLrdXCpzrUAXGeLCI0tzgmnGFcbmboseOoDd_U7X_tnbHz_i_389aPXeBPMc-KxjQDQqdb4W-qnM1eUib3Jn0kmYeMwQN-Ae5g-x8Lr5JPf4Hl97mWrD3LkMAhgy3NVILR98x4snYLR2xU13UlQgzkWUFN3Q8XUPxtH6lgjVsKL2NwrHIMY6bvW0kUJk3L5_qxbySVNAolP0k" />
+                                <div
+                                    class="absolute inset-0 bg-gradient-to-t from-background-dark/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-4">
+                                    <button
+                                        class="w-full py-2 bg-primary text-white rounded-lg text-sm font-bold mb-2 flex items-center justify-center gap-2">
+                                        <span class="material-icons text-sm">play_arrow</span>
+                                        Details
+                                    </button>
+                                </div>
+                                <div class="absolute top-3 right-3">
+                                    <button
+                                        class="w-8 h-8 rounded-full bg-black/40 backdrop-blur-md flex items-center justify-center text-white hover:text-red-500 transition-colors">
+                                        <span class="material-icons text-lg">favorite_border</span>
+                                    </button>
+                                </div>
+                            </div>
+                            <h3
+                                class="font-bold text-slate-800 dark:text-slate-200 truncate group-hover:text-primary transition-colors">
+                                Mindhunter</h3>
+                            <div class="flex items-center gap-2 mt-1">
+                                <div class="flex items-center text-yellow-500">
+                                    <span class="material-icons text-xs">star</span>
+                                    <span class="text-xs font-bold ml-1">4.8</span>
+                                </div>
+                                <span class="text-[10px] text-slate-400 uppercase tracking-widest font-bold">Crime •
+                                    Thriller</span>
+                            </div>
+                        </div>
+                        <!-- Card 8 -->
+                        <div class="group cursor-pointer">
+                            <div
+                                class="relative aspect-[2/3] rounded-xl overflow-hidden mb-3 shadow-lg transition-transform duration-300 group-hover:-translate-y-2">
+                                <img class="w-full h-full object-cover" data-alt="Poster for a high stakes heist show"
+                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuCeTXKoBXMeDvj4SYTY7ozQBMcHMB0tBqr0OsQh6SF7skxRUhE2R5r0qdjj22W-PJbndly_MZfODXzeZs1yueQaVRJZrfkn-UsoG58FermSBi4jkHsFdFui-RhX7w0ZJq-nqCz013c4jVSPKdRUQyXsBYNf22KxsiSo50TFQ3wJqh_iZMjxadU8WVlgDhuHN1ffyUViLjEjZWWPEp4RglO7Kp0H1zwfvdRYeDs3q25JRqAwXqwizwWa7wqIc1XqR01JyckD0nJgEKM" />
+                                <div
+                                    class="absolute inset-0 bg-gradient-to-t from-background-dark/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-4">
+                                    <button
+                                        class="w-full py-2 bg-primary text-white rounded-lg text-sm font-bold mb-2 flex items-center justify-center gap-2">
+                                        <span class="material-icons text-sm">play_arrow</span>
+                                        Details
+                                    </button>
+                                </div>
+                                <div class="absolute top-3 right-3">
+                                    <button
+                                        class="w-8 h-8 rounded-full bg-black/40 backdrop-blur-md flex items-center justify-center text-primary transition-colors">
+                                        <span class="material-icons text-lg">favorite</span>
+                                    </button>
+                                </div>
+                            </div>
+                            <h3
+                                class="font-bold text-slate-800 dark:text-slate-200 truncate group-hover:text-primary transition-colors">
+                                Money Heist</h3>
+                            <div class="flex items-center gap-2 mt-1">
+                                <div class="flex items-center text-yellow-500">
+                                    <span class="material-icons text-xs">star</span>
+                                    <span class="text-xs font-bold ml-1">4.4</span>
+                                </div>
+                                <span class="text-[10px] text-slate-400 uppercase tracking-widest font-bold">Action •
+                                    Thriller</span>
+                            </div>
+                        </div>
+                        <!-- Card 9 (Placeholder style for load more) -->
+                        <div class="group cursor-pointer">
+                            <div
+                                class="relative aspect-[2/3] rounded-xl overflow-hidden mb-3 shadow-lg transition-transform duration-300 group-hover:-translate-y-2">
+                                <img class="w-full h-full object-cover" data-alt="Poster for a comedy series"
+                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuAYjGVL6OlY0xTbadu3IME3LDEHXeYEkJQgqGPI7mdQerxfrxOGEFYZcZZW_VIlERROkhgnkl4rvCmsuJNzCEVhCaHM0cUO8CAI2w_9EyTaLS8PVHcQ0pb0Cl_iBakbM9UzUxzaZLZkeveDj78NQHwDDUUWQ8gFXscPa9vnfx_a1w7o-HjIXBLeXMilEO5DBjJw4i8ouqzDeyUWZQ3cyMGd1388A9esDJ4Y6z1jfg6tkhPE88nFIMKRBxLxuKqEbBooPPk-4dZtH3A" />
+                                <div
+                                    class="absolute inset-0 bg-gradient-to-t from-background-dark/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-4">
+                                    <button
+                                        class="w-full py-2 bg-primary text-white rounded-lg text-sm font-bold mb-2 flex items-center justify-center gap-2">
+                                        <span class="material-icons text-sm">play_arrow</span>
+                                        Details
+                                    </button>
+                                </div>
+                                <div class="absolute top-3 right-3">
+                                    <button
+                                        class="w-8 h-8 rounded-full bg-black/40 backdrop-blur-md flex items-center justify-center text-white hover:text-red-500 transition-colors">
+                                        <span class="material-icons text-lg">favorite_border</span>
+                                    </button>
+                                </div>
+                            </div>
+                            <h3
+                                class="font-bold text-slate-800 dark:text-slate-200 truncate group-hover:text-primary transition-colors">
+                                The Office</h3>
+                            <div class="flex items-center gap-2 mt-1">
+                                <div class="flex items-center text-yellow-500">
+                                    <span class="material-icons text-xs">star</span>
+                                    <span class="text-xs font-bold ml-1">4.9</span>
+                                </div>
+                                <span class="text-[10px] text-slate-400 uppercase tracking-widest font-bold">Comedy •
+                                    Sitcom</span>
+                            </div>
+                        </div>
+                        <div class="group cursor-pointer">
+                            <div
+                                class="relative aspect-[2/3] rounded-xl overflow-hidden mb-3 shadow-lg transition-transform duration-300 group-hover:-translate-y-2">
+                                <img class="w-full h-full object-cover" data-alt="Poster for a dark supernatural series"
+                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuCkR0BY_IkE9KK_raD4_GOkb6EmTtikBqpcX9-Glm8wKqnoviVkEzcYErcW9zHm2_Ytzn_OrG5uzFvQkuCY4g971_XsomlmD2k61idgGrIHk1c9ESCGRQXnL8BvCZ1yl052s5zJ1a_w4T1I0BvQiftYMTh6XU7QyQJkjIr1FwXzZ7k03d-t6JCvoNNuqCxCR4dF6WSV4-7bVUVviap5kPCS1ZwKhGMsEQaVNnjT6gjkMzDk2tMYLRofBcpUC-1NpHqWtEOGhQxhwd8" />
+                                <div
+                                    class="absolute inset-0 bg-gradient-to-t from-background-dark/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-4">
+                                    <button
+                                        class="w-full py-2 bg-primary text-white rounded-lg text-sm font-bold mb-2 flex items-center justify-center gap-2">
+                                        <span class="material-icons text-sm">play_arrow</span>
+                                        Details
+                                    </button>
+                                </div>
+                                <div class="absolute top-3 right-3">
+                                    <button
+                                        class="w-8 h-8 rounded-full bg-black/40 backdrop-blur-md flex items-center justify-center text-white hover:text-red-500 transition-colors">
+                                        <span class="material-icons text-lg">favorite_border</span>
+                                    </button>
+                                </div>
+                            </div>
+                            <h3
+                                class="font-bold text-slate-800 dark:text-slate-200 truncate group-hover:text-primary transition-colors">
+                                Dark</h3>
+                            <div class="flex items-center gap-2 mt-1">
+                                <div class="flex items-center text-yellow-500">
+                                    <span class="material-icons text-xs">star</span>
+                                    <span class="text-xs font-bold ml-1">4.8</span>
+                                </div>
+                                <span class="text-[10px] text-slate-400 uppercase tracking-widest font-bold">Sci-Fi •
+                                    Mystery</span>
+                            </div>
+                        </div>
+                        <div class="group cursor-pointer">
+                            <div
+                                class="relative aspect-[2/3] rounded-xl overflow-hidden mb-3 shadow-lg transition-transform duration-300 group-hover:-translate-y-2">
+                                <img class="w-full h-full object-cover" data-alt="Poster for a crime thriller series"
+                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuBpjXsRSFRzCeaOR0Ja_X9zfA80w6oj44suHdP7z_rCN9LvYKvT8DvVkms9Em9Kgz2_xUvlTcroUXkv930gcleZY6i1XCCBVGXIC3tf7FNU71-yojiOlxAQyUd-lGiZEX-r831DG5k3IIgmEMLhEcNLDixgpG0XNLtbmw_jNZ6cgh0-0wxmuaq7JyjVy0FyeDkOEWqPQtx_DXadr9770P8wAh3KsFifFcd9EYj3hZuOwU7xNk5hYN3IsDnJc_-bnOXfj9Pczrsx6iE" />
+                                <div
+                                    class="absolute inset-0 bg-gradient-to-t from-background-dark/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-4">
+                                    <button
+                                        class="w-full py-2 bg-primary text-white rounded-lg text-sm font-bold mb-2 flex items-center justify-center gap-2">
+                                        <span class="material-icons text-sm">play_arrow</span>
+                                        Details
+                                    </button>
+                                </div>
+                                <div class="absolute top-3 right-3">
+                                    <button
+                                        class="w-8 h-8 rounded-full bg-black/40 backdrop-blur-md flex items-center justify-center text-white hover:text-red-500 transition-colors">
+                                        <span class="material-icons text-lg">favorite_border</span>
+                                    </button>
+                                </div>
+                            </div>
+                            <h3
+                                class="font-bold text-slate-800 dark:text-slate-200 truncate group-hover:text-primary transition-colors">
+                                Better Call Saul</h3>
+                            <div class="flex items-center gap-2 mt-1">
+                                <div class="flex items-center text-yellow-500">
+                                    <span class="material-icons text-xs">star</span>
+                                    <span class="text-xs font-bold ml-1">4.9</span>
+                                </div>
+                                <span class="text-[10px] text-slate-400 uppercase tracking-widest font-bold">Drama •
+                                    Crime</span>
+                            </div>
+                        </div>
+                        <div class="group cursor-pointer">
+                            <div
+                                class="relative aspect-[2/3] rounded-xl overflow-hidden mb-3 shadow-lg transition-transform duration-300 group-hover:-translate-y-2">
+                                <img class="w-full h-full object-cover" data-alt="Poster for a sci-fi anthology series"
+                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuCQWl_-48Fv87Jjlv97U9bb8RDNrDM6N5djmDd6sG5SdNVDno-sWGxqD0Q1mnSfuIT2hDJSASJHiGTkVJwMtUOafblSFM-EJTPtdKFEymspkTCZJruHObwnBptyP4H_8WzixW9iYhWG9NG-CiTB4HNtXZ7qLRP26png8s1wVbBKo_xbVs3KPUG37-F1sI33sCYBcdmCLY_KxN4ciEAur0iWDxJk0IjLEK5AtIuh8OnC_Bs0ySPcJYMTJw0TVkoff2fxk9B-xc963Ac" />
+                                <div
+                                    class="absolute inset-0 bg-gradient-to-t from-background-dark/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-4">
+                                    <button
+                                        class="w-full py-2 bg-primary text-white rounded-lg text-sm font-bold mb-2 flex items-center justify-center gap-2">
+                                        <span class="material-icons text-sm">play_arrow</span>
+                                        Details
+                                    </button>
+                                </div>
+                                <div class="absolute top-3 right-3">
+                                    <button
+                                        class="w-8 h-8 rounded-full bg-black/40 backdrop-blur-md flex items-center justify-center text-primary transition-colors">
+                                        <span class="material-icons text-lg">favorite</span>
+                                    </button>
+                                </div>
+                            </div>
+                            <h3
+                                class="font-bold text-slate-800 dark:text-slate-200 truncate group-hover:text-primary transition-colors">
+                                Black Mirror</h3>
+                            <div class="flex items-center gap-2 mt-1">
+                                <div class="flex items-center text-yellow-500">
+                                    <span class="material-icons text-xs">star</span>
+                                    <span class="text-xs font-bold ml-1">4.6</span>
+                                </div>
+                                <span class="text-[10px] text-slate-400 uppercase tracking-widest font-bold">Sci-Fi •
+                                    Anthology</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Pagination / Load More -->
+                    <div class="mt-12 flex justify-center pb-20">
+                        <button
+                            class="flex items-center gap-2 px-8 py-3 bg-primary text-white rounded-xl font-bold hover:bg-primary/90 transition-all shadow-lg shadow-primary/30">
+                            Load More Series
+                            <span class="material-icons text-sm">expand_more</span>
+                        </button>
+                    </div>
+                    <!-- Compact Footer -->
+                    <footer
+                        class="mt-auto py-8 border-t border-slate-200 dark:border-primary/10 flex flex-col md:flex-row items-center justify-between text-slate-500 dark:text-slate-500 text-sm">
+                        <div class="flex items-center gap-2 mb-4 md:mb-0">
+                            <span class="material-icons text-primary text-lg">movie_filter</span>
+                            <span class="font-bold text-slate-800 dark:text-slate-400">CineTrack</span>
+                            <span class="mx-2 opacity-50">© 2024</span>
+                        </div>
+                        <div class="flex items-center gap-8">
+                            <a class="hover:text-primary transition-colors" href="#">Privacy Policy</a>
+                            <a class="hover:text-primary transition-colors" href="#">Terms of Service</a>
+                            <a class="hover:text-primary transition-colors" href="#">API Docs</a>
+                            <a class="hover:text-primary transition-colors" href="#">Help Center</a>
+                        </div>
+                    </footer>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+
+</html>

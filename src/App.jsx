@@ -1,0 +1,36 @@
+import { Routes, Route } from "react-router-dom"
+import MainLayout from "./layouts/MainLayout";
+import AuthLayout from "./layouts/AuthLayout";
+import Login from "./pages/Login";
+import HomePage from "./pages/Homepage";
+import FavoritesPage from "./pages/FavoritesPage";
+import AllTvSeriesPage from "./pages/AllTvSeriesPage";
+import AllMoviesPage from "./pages/AllMoviesPage";
+import AppContextProvider from "./context/AppContext";
+import { useEffect, useState } from "react"
+
+
+
+
+function App() {
+
+  return (
+    <AppContextProvider>
+      <Routes>
+        <Route element={< AuthLayout />}>
+          <Route path="/login" element={<Login />} />
+        </Route>
+
+        <Route element={<MainLayout />}>
+          <Route path="/home" element={<HomePage />} />
+          <Route path="/favorites" element={<FavoritesPage />} />
+          <Route path="/AllTvSeries" element={<AllTvSeriesPage />} />
+          <Route path="/AllMovies" element={<AllMoviesPage />} />
+        </Route>
+      </Routes>
+    </AppContextProvider>
+  );
+}
+
+export default App;
+

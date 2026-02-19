@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>CineTrack - Premium Media Tracker</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,typography,container-queries"></script>
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#F59E0B", // Amber 500
+                        "navy-premium": "#0F172A",
+                        "navy-deep": "#020617",
+                        "background-light": "#F8FAFC",
+                        "background-dark": "#0B0F1A",
+                        "surface-dark": "#1E293B",
+                        "card-dark": "rgba(30, 41, 59, 0.7)",
+                    },
+                    fontFamily: {
+                        display: ["Inter", "sans-serif"],
+                    },
+                    borderRadius: {
+                        DEFAULT: "0.75rem",
+                    },
+                },
+            },
+        };
+    </script>
+    <style type="text/tailwindcss">
+        @layer base {
+            body { font-family: 'Inter', sans-serif; }
+        }
+        .premium-header, .premium-footer {
+            background: linear-gradient(to right, #020617, #0F172A, #020617);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .premium-header {
+            border-top: none;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .glass-panel {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+        }
+        .theme-toggle-shadow {
+            box-shadow: 0 0 15px rgba(245, 158, 11, 0.1);
+        }
+    </style>
+</head>
+
+<body
+    class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen transition-colors duration-300 flex flex-col">
+    <header class="sticky top-0 z-50 premium-header text-white">
+        <div class="max-w-[1600px] mx-auto px-6 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-12">
+                <div class="flex items-center gap-2 group cursor-pointer">
+                    <span
+                        class="material-icons-round text-primary text-3xl group-hover:scale-110 transition-transform">movie</span>
+                    <h1 class="text-2xl font-bold tracking-tight text-white">CineTrack</h1>
+                </div>
+                <nav class="hidden md:flex items-center gap-8">
+                    <a class="text-primary font-semibold border-b-2 border-primary pb-1" href="#">Home</a>
+                    <a class="text-slate-300 hover:text-white transition-colors" href="#">Favorites</a>
+                    <a class="text-slate-300 hover:text-white transition-colors" href="#">Add Movie</a>
+                </nav>
+            </div>
+            <div class="flex items-center gap-4 sm:gap-6">
+                <button
+                    class="flex items-center justify-center w-10 h-10 rounded-full bg-white/5 border border-white/10 hover:bg-white/10 transition-all text-slate-300 hover:text-primary theme-toggle-shadow"
+                    onclick="document.documentElement.classList.toggle('dark')">
+                    <span class="material-symbols-outlined dark:hidden">dark_mode</span>
+                    <span class="material-symbols-outlined hidden dark:block">light_mode</span>
+                </button>
+                <div class="h-8 w-[1px] bg-white/10 hidden sm:block"></div>
+                <div class="flex items-center gap-3">
+                    <span class="text-sm text-slate-300 hidden sm:inline">Welcome, <span
+                            class="text-white font-medium">Emin</span></span>
+                    <div
+                        class="w-9 h-9 rounded-full bg-primary/20 flex items-center justify-center text-primary border border-primary/30 ring-2 ring-transparent hover:ring-primary/40 transition-all cursor-pointer">
+                        <span class="material-icons-round text-lg">person</span>
+                    </div>
+                </div>
+                <button
+                    class="flex items-center gap-2 text-sm font-medium text-slate-300 hover:text-red-400 transition-colors">
+                    <span class="material-icons-round text-lg">logout</span>
+                    <span class="hidden sm:inline">Logout</span>
+                </button>
+            </div>
+        </div>
+    </header>
+    <div class="max-w-[1600px] mx-auto px-6 py-8 flex gap-8 flex-1 w-full">
+        <aside class="w-64 hidden lg:block shrink-0">
+            <div class="space-y-2">
+                <a class="flex items-center gap-3 px-4 py-3 rounded-xl bg-slate-100 dark:bg-slate-800/80 text-primary font-semibold transition-all border border-transparent dark:border-white/5"
+                    href="#">
+                    <span class="material-icons-round">movie_filter</span>
+                    All Movies
+                </a>
+                <a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800/50 transition-all group"
+                    href="#">
+                    <span class="material-icons-round group-hover:text-primary transition-colors">tv</span>
+                    All TV Series
+                </a>
+                <a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800/50 transition-all group"
+                    href="#">
+                    <span class="material-icons-round group-hover:text-primary transition-colors">favorite</span>
+                    Favorites
+                </a>
+            </div>
+            <div
+                class="mt-12 p-5 rounded-2xl bg-gradient-to-br from-primary/10 to-transparent border border-primary/10 shadow-sm">
+                <h4 class="font-bold text-sm mb-2 text-primary">Pro Feature</h4>
+                <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">Sync your library across all
+                    devices and get personalized recommendations.</p>
+                <button
+                    class="mt-4 w-full py-2 bg-primary text-white rounded-lg text-xs font-bold hover:brightness-110 transition-all shadow-md shadow-primary/20">Upgrade
+                    Now</button>
+            </div>
+        </aside>
+        <main class="flex-1 space-y-10 min-w-0">
+            <div class="flex flex-col sm:flex-row gap-4 items-center">
+                <div class="relative flex-1 w-full">
+                    <span
+                        class="material-icons-round absolute left-4 top-1/2 -translate-y-1/2 text-slate-400">search</span>
+                    <input
+                        class="w-full pl-12 pr-4 py-3.5 bg-white dark:bg-slate-800/50 border-none rounded-2xl focus:ring-2 focus:ring-primary shadow-sm dark:shadow-none transition-all placeholder:text-slate-400 dark:text-slate-300"
+                        placeholder="Search movies, TV shows, actors..." type="text" />
+                </div>
+                <div class="flex gap-3 w-full sm:w-auto">
+                    <button
+                        class="flex-1 sm:flex-none flex items-center justify-center gap-2 px-6 py-3.5 bg-white dark:bg-slate-800/50 text-slate-700 dark:text-slate-200 font-semibold rounded-2xl border border-slate-200 dark:border-slate-700/50 hover:bg-slate-50 dark:hover:bg-slate-700 transition-all">
+                        Categories
+                        <span class="material-icons-round text-lg">expand_more</span>
+                    </button>
+                    <button
+                        class="flex-1 sm:flex-none flex items-center justify-center gap-2 px-6 py-3.5 bg-primary text-white font-bold rounded-2xl shadow-lg shadow-primary/20 hover:scale-[1.02] active:scale-[0.98] transition-all">
+                        <span class="material-icons-round">add</span>
+                        Add Movie
+                    </button>
+                </div>
+            </div>
+            <section>
+                <div class="flex items-center justify-between mb-6">
+                    <h2 class="text-2xl font-bold tracking-tight">Trending Movies</h2>
+                    <div class="flex gap-2">
+                        <button
+                            class="w-9 h-9 flex items-center justify-center rounded-full border border-slate-200 dark:border-slate-800 text-slate-400 hover:text-primary hover:border-primary transition-all">
+                            <span class="material-icons-round text-xl">chevron_left</span>
+                        </button>
+                        <button
+                            class="w-9 h-9 flex items-center justify-center rounded-full border border-slate-200 dark:border-slate-800 text-slate-400 hover:text-primary hover:border-primary transition-all">
+                            <span class="material-icons-round text-xl">chevron_right</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-5 gap-6">
+                    <div
+                        class="group relative bg-white dark:bg-card-dark rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all border border-transparent dark:border-slate-800/50">
+                        <div class="aspect-[2/3] relative overflow-hidden">
+                            <img alt="Inception Poster"
+                                class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuB7K2k0VhMx8wREQbwFNOm7WHD3w4vRJwc_81XmqH0uBeghYfdHSqJf8GWjCIRsrPclAueKcf5LtAeUyzk-clSofgOsvVWqyBVMToOkDM0qDYiBYoElT7g1iP1512LeVbdKtWj4qEjpvMIRgB-9HLJxESf802Q3N_tL6tYOpRJh1NfTw6gTmW7OnP58jKq1kX-2j0aqbSdBsCxdanaUJFRqx0Gwq4SGd3IueDjLW0rLaMffgOeFhkA2V6Lr_ONznh8dlvWs-JdS1kA" />
+                            <div
+                                class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-4">
+                                <button
+                                    class="w-full py-2.5 bg-white/20 backdrop-blur-md border border-white/30 text-white text-xs font-bold rounded-xl hover:bg-white/30 transition-all flex items-center justify-center gap-2 mb-2">
+                                    <span class="material-icons-round text-sm text-red-500">favorite</span> Add to
+                                    Favorites
+                                </button>
+                                <button
+                                    class="w-full py-2.5 bg-primary text-white text-xs font-bold rounded-xl hover:brightness-110 transition-all">
+                                    View Details
+                                </button>
+                            </div>
+                        </div>
+                        <div class="p-4">
+                            <div class="flex items-center gap-1.5 mb-2">
+                                <span
+                                    class="px-2 py-0.5 rounded-md bg-red-100 dark:bg-red-500/20 text-red-600 dark:text-red-400 text-[10px] font-bold uppercase">Action</span>
+                                <div class="flex items-center gap-0.5 ml-auto">
+                                    <span class="material-icons-round text-primary text-sm">star</span>
+                                    <span class="text-xs font-bold">8.8</span>
+                                </div>
+                            </div>
+                            <h3 class="font-bold text-slate-900 dark:text-white truncate">Inception</h3>
+                            <p class="text-[11px] text-slate-500 dark:text-slate-400 line-clamp-2 mt-1">A mind-bending
+                                thriller by Christopher Nolan about dreams within dreams.</p>
+                        </div>
+                    </div>
+                    <div
+                        class="group relative bg-white dark:bg-card-dark rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all border border-transparent dark:border-slate-800/50">
+                        <div class="aspect-[2/3] relative overflow-hidden">
+                            <img alt="The Dark Knight Poster"
+                                class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuAPzraBZmX65_trWunwpOTNTQp56sOtkdsaIvKskBOW0F1dcXEpJHt5KtYKcC52mvnarELPs2VVqiNXA8Tyvo8EKZZwVjBAjM0vuA_LT8sPCHFpIi93p3r4fUFinN5PLSUphrzM8gFoCzOwakjyiTolRpioU3SvGEVd75GJvmQ4cRrDHTMKidjgb-neZqIHt-0VTOYy30_J5oMnYEj8Td6-dpI9e0g7bmoJn6FiDevIQRm5A3d90DBhmxOu0UodCfZccS9Sd5LBZuc" />
+                            <div
+                                class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-4">
+                                <button
+                                    class="w-full py-2.5 bg-white/20 backdrop-blur-md border border-white/30 text-white text-xs font-bold rounded-xl hover:bg-white/30 transition-all flex items-center justify-center gap-2 mb-2">
+                                    <span class="material-icons-round text-sm text-red-500">favorite</span> Add to
+                                    Favorites
+                                </button>
+                                <button
+                                    class="w-full py-2.5 bg-primary text-white text-xs font-bold rounded-xl hover:brightness-110 transition-all">
+                                    View Details
+                                </button>
+                            </div>
+                        </div>
+                        <div class="p-4">
+                            <div class="flex items-center gap-1.5 mb-2">
+                                <span
+                                    class="px-2 py-0.5 rounded-md bg-blue-100 dark:bg-blue-500/20 text-blue-600 dark:text-blue-400 text-[10px] font-bold uppercase">Thriller</span>
+                                <div class="flex items-center gap-0.5 ml-auto">
+                                    <span class="material-icons-round text-primary text-sm">star</span>
+                                    <span class="text-xs font-bold">9.0</span>
+                                </div>
+                            </div>
+                            <h3 class="font-bold text-slate-900 dark:text-white truncate">The Dark Knight</h3>
+                            <p class="text-[11px] text-slate-500 dark:text-slate-400 line-clamp-2 mt-1">When the menace
+                                known as the Joker wreaks havoc and chaos on Gotham.</p>
+                        </div>
+                    </div>
+                    <div
+                        class="group relative bg-white dark:bg-card-dark rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all border border-transparent dark:border-slate-800/50">
+                        <div class="aspect-[2/3] relative overflow-hidden">
+                            <img alt="Interstellar Poster"
+                                class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuDIalv2idwlkvV8X68VOnhKB5Z1p4-OhGigKOqtW1TDB5cqNPeIE78i7yp2AlgfQ7CLwqW-cB0TkOdaevpiCo7eiIG5KLttSlbskLzKlsld7QCGHgEkCZcR0N8R5UIo-u7mdiKPrGx2J2gvNWA6jCwowvsNlpFpxibTgVCvvEuy_dwaMBkEvc59OuhEJe7lMDlgvs_EVOlQjVn5xwVFwWFusHf94D-GyrTWcVgWLh9LJ4gwGtP8BOMjf2gpBhL4PY0WE7fhmL7Qx_8" />
+                            <div
+                                class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-4">
+                                <button
+                                    class="w-full py-2.5 bg-white/20 backdrop-blur-md border border-white/30 text-white text-xs font-bold rounded-xl hover:bg-white/30 transition-all flex items-center justify-center gap-2 mb-2">
+                                    <span class="material-icons-round text-sm text-red-500">favorite_border</span> Add
+                                    to Favorites
+                                </button>
+                                <button
+                                    class="w-full py-2.5 bg-primary text-white text-xs font-bold rounded-xl hover:brightness-110 transition-all">
+                                    View Details
+                                </button>
+                            </div>
+                        </div>
+                        <div class="p-4">
+                            <div class="flex items-center gap-1.5 mb-2">
+                                <span
+                                    class="px-2 py-0.5 rounded-md bg-purple-100 dark:bg-purple-500/20 text-purple-600 dark:text-purple-400 text-[10px] font-bold uppercase">Sci-Fi</span>
+                                <div class="flex items-center gap-0.5 ml-auto">
+                                    <span class="material-icons-round text-primary text-sm">star</span>
+                                    <span class="text-xs font-bold">8.6</span>
+                                </div>
+                            </div>
+                            <h3 class="font-bold text-slate-900 dark:text-white truncate">Interstellar</h3>
+                            <p class="text-[11px] text-slate-500 dark:text-slate-400 line-clamp-2 mt-1">A team of
+                                explorers travel through a wormhole in space.</p>
+                        </div>
+                    </div>
+                    <div
+                        class="group relative bg-white dark:bg-card-dark rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all border border-transparent dark:border-slate-800/50">
+                        <div class="aspect-[2/3] relative overflow-hidden">
+                            <img alt="Pulp Fiction Poster"
+                                class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuAUQXCPplsm4wMRhgojXSl_J2vXJdkv-gl-gyqB7qe34m9sEAR6ZKuGKZ8tH_81Urpqs-ebkwamsPnQrzs7dYFfBZJclPPMVw_H19E4SnS8Xaxw5CNUyX2eUZyGuzjFGT46HQuvfXfZEiNmpRSR2a7bgmcAIdwEVrju_F0HbIUdf1e-_d2kyXL6UX-EhnoPptBYZOPeqOJdur6r1RfRX68uSfhjSaasmLVUllNNHRYMkuPQQeTzHy_ea_qu6gvEE2rzychXjlrL7Qs" />
+                            <div
+                                class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-4">
+                                <button
+                                    class="w-full py-2.5 bg-white/20 backdrop-blur-md border border-white/30 text-white text-xs font-bold rounded-xl hover:bg-white/30 transition-all flex items-center justify-center gap-2 mb-2">
+                                    <span class="material-icons-round text-sm text-red-500">favorite</span> Add to
+                                    Favorites
+                                </button>
+                                <button
+                                    class="w-full py-2.5 bg-primary text-white text-xs font-bold rounded-xl hover:brightness-110 transition-all">
+                                    View Details
+                                </button>
+                            </div>
+                        </div>
+                        <div class="p-4">
+                            <div class="flex items-center gap-1.5 mb-2">
+                                <span
+                                    class="px-2 py-0.5 rounded-md bg-yellow-100 dark:bg-yellow-500/20 text-yellow-600 dark:text-yellow-400 text-[10px] font-bold uppercase">Crime</span>
+                                <div class="flex items-center gap-0.5 ml-auto">
+                                    <span class="material-icons-round text-primary text-sm">star</span>
+                                    <span class="text-xs font-bold">8.9</span>
+                                </div>
+                            </div>
+                            <h3 class="font-bold text-slate-900 dark:text-white truncate">Pulp Fiction</h3>
+                            <p class="text-[11px] text-slate-500 dark:text-slate-400 line-clamp-2 mt-1">The lives of two
+                                mob hitmen, a boxer, and a gangster's wife.</p>
+                        </div>
+                    </div>
+                    <div
+                        class="group relative bg-white dark:bg-card-dark rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all border border-transparent dark:border-slate-800/50">
+                        <div class="aspect-[2/3] relative overflow-hidden">
+                            <img alt="Parasite Poster"
+                                class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuDRzotEVl9uZTDxWsJSHaC2vYYYYll1oRnp2m9YbwyMgQfb5NvR6X5S1kwLMSfImKeR0ci1J8YkWvPFPP4bRzmVLSHtIp3cde21z67_L5BwdOPwgwxbOQnPpi_YfQcf6pb55oZZVdbj90U6u9DLtvQenV2jJ17LQinvpNZtM9iIRAKd5RjXMuAYe_ys2w8gVhJ9TFPl_35ayWpLtWW1yTYFypY-hlBMUvJ99HoMpqcgGTWUl0UFDGr-x1NBuOuW50cdzks5X-AWXps" />
+                            <div
+                                class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-4">
+                                <button
+                                    class="w-full py-2.5 bg-white/20 backdrop-blur-md border border-white/30 text-white text-xs font-bold rounded-xl hover:bg-white/30 transition-all flex items-center justify-center gap-2 mb-2">
+                                    <span class="material-icons-round text-sm text-red-500">favorite_border</span> Add
+                                    to Favorites
+                                </button>
+                                <button
+                                    class="w-full py-2.5 bg-primary text-white text-xs font-bold rounded-xl hover:brightness-110 transition-all">
+                                    View Details
+                                </button>
+                            </div>
+                        </div>
+                        <div class="p-4">
+                            <div class="flex items-center gap-1.5 mb-2">
+                                <span
+                                    class="px-2 py-0.5 rounded-md bg-green-100 dark:bg-green-500/20 text-green-600 dark:text-green-400 text-[10px] font-bold uppercase">Drama</span>
+                                <div class="flex items-center gap-0.5 ml-auto">
+                                    <span class="material-icons-round text-primary text-sm">star</span>
+                                    <span class="text-xs font-bold">8.5</span>
+                                </div>
+                            </div>
+                            <h3 class="font-bold text-slate-900 dark:text-white truncate">Parasite</h3>
+                            <p class="text-[11px] text-slate-500 dark:text-slate-400 line-clamp-2 mt-1">Greed and class
+                                discrimination threaten the relationship.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section>
+                <div class="flex items-center justify-between mb-6">
+                    <h2 class="text-2xl font-bold tracking-tight">Trending TV Series</h2>
+                    <a class="text-sm font-semibold text-primary hover:underline flex items-center gap-1" href="#">
+                        See all <span class="material-icons-round text-base">arrow_forward</span>
+                    </a>
+                </div>
+                <div class="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-5 gap-6">
+                    <div
+                        class="group relative rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all h-64 border border-transparent dark:border-slate-800">
+                        <img alt="Breaking Bad"
+                            class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuCrcWQIzljaX0p6llW8NrjQ4j1F0fVLSaLo0vMatv0SnuyZIqnrexe37rPXtc5MLvULQEKrIp_aSCnLbn_hP4SbMOJWSbazrK-IvgmJNDKJGXaymwNGUuJG06pbDMt3I4jX9Oj77f-jrN-fFHLYfNPQBp73Yo4sAoR7h6JDnrCAFE7cH5IITjraNYcYxeFmd2ENFe8uOOOQaTf3FWHQiIvnc1EXGRiEPwHyxe3ygqMrgOvvhJzWCiR7G-CZRctHmtehUUMgWB9AeVA" />
+                        <div
+                            class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent p-4 flex flex-col justify-end">
+                            <h3 class="text-white font-bold">Breaking Bad</h3>
+                            <div class="flex items-center justify-between mt-1">
+                                <div class="flex items-center gap-1 text-primary text-xs font-bold">
+                                    <span class="material-icons-round text-sm">star</span> 9.5
+                                </div>
+                                <button
+                                    class="p-1.5 bg-white/20 backdrop-blur rounded-full text-white hover:bg-white/40">
+                                    <span class="material-icons-round text-sm">favorite</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div
+                        class="group relative rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all h-64 border border-transparent dark:border-slate-800">
+                        <img alt="The Witcher"
+                            class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuCT-wmMvxkYaZ4k_LCL1OPbSi_ob9Xw3wCdIsZGCCbJcgYCVZKKUm2fyN7ykzqXkycVOytIeX-0pMZdEwxYZuU1qzfgvRi2kAyq9HAoHhl4EVZVZTK3jhV7u9ypzYJVHgdgJcytXSAk3rnj1jyuE8Yi5w-gocDq7TMn4WgfdsghWQgcPfC8_T2xu4dsb9OO2JsfdPtgEW_d3OXjyppFiK-93g_hA3Gebwj-K99gUuc1J0t-OIpTToFQ9NDTnOt7S2HTT8ACB4FRjsU" />
+                        <div
+                            class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent p-4 flex flex-col justify-end">
+                            <h3 class="text-white font-bold">The Witcher</h3>
+                            <div class="flex items-center justify-between mt-1">
+                                <div class="flex items-center gap-1 text-primary text-xs font-bold">
+                                    <span class="material-icons-round text-sm">star</span> 8.1
+                                </div>
+                                <button
+                                    class="p-1.5 bg-white/20 backdrop-blur rounded-full text-white hover:bg-white/40">
+                                    <span class="material-icons-round text-sm">favorite_border</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div
+                        class="group relative rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all h-64 border border-transparent dark:border-slate-800">
+                        <img alt="Stranger Things"
+                            class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuCxZLrZC2NRKMy6tO78lFvOTnPmOFnql49li4d7KTfjxlKr-C9RX8wW5LqkGDV5oLvcoELY4EEMjJW83tv1hp8A3j2v6jh4Fbjc1PQZ-IBbV6NJ8X6qVEt3yYAn5bLWbzaUSPy48lUWkNqyFDNBX1bgT_OiTXAdMNzhrbIHWfg2Iy91UKn4EyjmOgAtceYeLPkzz2MgtaIOPkeF4tKojHj6Fm_wmFz8xaudNuAi14khu3oattdfSAqcWc-uzXrbOuTdOr15PCW1inM" />
+                        <div
+                            class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent p-4 flex flex-col justify-end">
+                            <h3 class="text-white font-bold">Stranger Things</h3>
+                            <div class="flex items-center justify-between mt-1">
+                                <div class="flex items-center gap-1 text-primary text-xs font-bold">
+                                    <span class="material-icons-round text-sm">star</span> 8.7
+                                </div>
+                                <button
+                                    class="p-1.5 bg-white/20 backdrop-blur rounded-full text-white hover:bg-white/40">
+                                    <span class="material-icons-round text-sm">favorite</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div
+                        class="group relative rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all h-64 border border-transparent dark:border-slate-800">
+                        <img alt="The Crown"
+                            class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuCGT5iwU3miyF8JawbHZlRcewOLRvMRli7lCjzDzvnb8GUDMsKhcxYPe6sK2bQdCT-3726seHJXpI_c2fReyhzAGReI2emYK_LjRN9X4wuuMHUZEJTDtzglE06_-oLoHAQHISJGpicB3CyT0iv1nVVpwJd52SqWxm4vlNOqwO5qnNsWF5lb48T5gVRb9PdBGB4hcdGO4CQNiv5S6mDdl7g__ZQFLLu4Wjt9RC-XSm0roasYlioHyV5UCDbJ7g4ElpYzWoTMETigRYo" />
+                        <div
+                            class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent p-4 flex flex-col justify-end">
+                            <h3 class="text-white font-bold">The Crown</h3>
+                            <div class="flex items-center justify-between mt-1">
+                                <div class="flex items-center gap-1 text-primary text-xs font-bold">
+                                    <span class="material-icons-round text-sm">star</span> 8.6
+                                </div>
+                                <button
+                                    class="p-1.5 bg-white/20 backdrop-blur rounded-full text-white hover:bg-white/40">
+                                    <span class="material-icons-round text-sm">favorite_border</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div
+                        class="group relative rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all h-64 border border-transparent dark:border-slate-800">
+                        <img alt="Sherlock"
+                            class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuBaNlds-FpJ_DD7MOURX1nOUrYi73AvreMvIQ0Uxyni1vP7a5rgVNA3madv1IxGCDCUX8HLCBpdiYwNC2gYoOLNPpxnBrTlQGSFdGkpG7YMJrhmvLk6giDSizBpgd6gUg1jrRzt5Fe2hTtaOkWXhBlXSopX43pK8r7snhLkO96j2pZNX_aWEXHUeUMhmglAvt_NTljDiTeGIRQFIavuEtRC4DdhuigNW5paMAqqJtPe6e3PbGB9i8WKMtDLJRbXIKRP19nmBsUvm-0" />
+                        <div
+                            class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent p-4 flex flex-col justify-end">
+                            <h3 class="text-white font-bold">Sherlock</h3>
+                            <div class="flex items-center justify-between mt-1">
+                                <div class="flex items-center gap-1 text-primary text-xs font-bold">
+                                    <span class="material-icons-round text-sm">star</span> 9.1
+                                </div>
+                                <button
+                                    class="p-1.5 bg-white/20 backdrop-blur rounded-full text-white hover:bg-white/40">
+                                    <span class="material-icons-round text-sm">favorite</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section>
+                <div class="flex items-center gap-3 mb-6">
+                    <h2 class="text-2xl font-bold tracking-tight">My Favorites</h2>
+                    <span class="px-2.5 py-0.5 rounded-full bg-primary/10 text-primary text-xs font-bold">24
+                        items</span>
+                </div>
+                <div class="flex gap-4 overflow-x-auto pb-4 custom-scrollbar">
+                    <div
+                        class="min-w-[280px] group relative rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-800">
+                        <div class="flex h-32">
+                            <img alt="Fav 1" class="w-24 object-cover"
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuBBfB0H1e3XSDbMkPjDDGc1ezt4uULS4YOFKvu8wU4VEwlRqqTDnf6G4HAOlIDE1AGSrlrs4B_8RvHhPqkD81ulP7TpCtFbZaepGFasH56HfRMjZvNqiXYxJe9ED6NmtzlhtspYtClgrLUqix1QjE2Hf01kbsr6D53Prb3-D3X7RFvt5JGzkt1yHrHbm_ekfTiWAYf46sqX_FmSrHiJ__C5Ce8tJub9m-rBiEQtkqlUdR0c-r5JwvgA72LgexGg3EM_uXc6LmSM4VA" />
+                            <div class="flex-1 p-3 bg-white dark:bg-slate-800 flex flex-col justify-between">
+                                <div>
+                                    <h4 class="font-bold text-sm truncate">The Godfather</h4>
+                                    <p class="text-[10px] text-slate-500">Crime, Drama</p>
+                                </div>
+                                <div class="flex items-center justify-between">
+                                    <span class="text-primary font-bold text-xs">9.2</span>
+                                    <button class="text-xs font-bold text-slate-400 hover:text-red-500">Remove</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div
+                        class="min-w-[280px] group relative rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-800">
+                        <div class="flex h-32">
+                            <img alt="Fav 2" class="w-24 object-cover"
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuDKEiSd5S8jIPWhHDEKepYfe_-r52iks3jbkd0J3Pr9muJZynLMECCtQeMV7VreFtJeGULmShVt40IPQNCvkdDspdxCby6F1MnboZz_nAlYYvbAMMJSdWZ4YrvHjJq1z_K9cMXaIsOINcGh-H5MoWrHVp22X-C0rElUfQAxjUe2PqqXXnwHBELPDSNzLfpCMxGwkPRYH--oPuQrVmbLxBO7MUIOjV5jFQz6i8MwQIU1N1kl0dEb3Oa3niknw2rvryrKTKgNSl6ujOI" />
+                            <div class="flex-1 p-3 bg-white dark:bg-slate-800 flex flex-col justify-between">
+                                <div>
+                                    <h4 class="font-bold text-sm truncate">Fight Club</h4>
+                                    <p class="text-[10px] text-slate-500">Drama</p>
+                                </div>
+                                <div class="flex items-center justify-between">
+                                    <span class="text-primary font-bold text-xs">8.8</span>
+                                    <button class="text-xs font-bold text-slate-400 hover:text-red-500">Remove</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div
+                        class="min-w-[280px] group relative rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-800">
+                        <div class="flex h-32">
+                            <img alt="Fav 3" class="w-24 object-cover"
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuDFXeDFncl3pJcI8WmYjYBB_Ov4BVsh2IUbBtdOAPKNzdOI3Ffftr12yUNAVoVWinEDUAXVjK0b89g_Wd3EWWZ47J0oJuT3v5D6yED9W6c1LCoif4C8qk83_w6qRlEDNjVTU80udH7jQr1La1CgZNb-B-Yd7hg46UhyOUO8NYblo_SXfP-tBJBhrKuQR5O-Ms9wDQp9gM2oIuypTkPo25a_VQvfwkiS5Oaiv7WiGo-raUbj5xnksdEXTDK8SsHT4i7HM-wb-yZfrGw" />
+                            <div class="flex-1 p-3 bg-white dark:bg-slate-800 flex flex-col justify-between">
+                                <div>
+                                    <h4 class="font-bold text-sm truncate">The Matrix</h4>
+                                    <p class="text-[10px] text-slate-500">Sci-Fi, Action</p>
+                                </div>
+                                <div class="flex items-center justify-between">
+                                    <span class="text-primary font-bold text-xs">8.7</span>
+                                    <button class="text-xs font-bold text-slate-400 hover:text-red-500">Remove</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <a class="min-w-[120px] flex flex-col items-center justify-center rounded-2xl border-2 border-dashed border-slate-200 dark:border-slate-800 text-slate-400 hover:text-primary hover:border-primary transition-all group"
+                        href="#">
+                        <span
+                            class="material-icons-round mb-1 group-hover:scale-110 transition-transform">add_circle_outline</span>
+                        <span class="text-xs font-bold">View More</span>
+                    </a>
+                </div>
+            </section>
+        </main>
+    </div>
+    <footer class="premium-footer text-slate-300 mt-auto py-8">
+        <div class="max-w-[1600px] mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-x-8 gap-y-6 mb-6">
+                <div class="space-y-3">
+                    <div class="flex items-center gap-2 group cursor-pointer">
+                        <span class="material-icons-round text-primary text-xl">movie</span>
+                        <h2 class="text-lg font-bold tracking-tight text-white">CineTrack</h2>
+                    </div>
+                    <p class="text-xs leading-relaxed text-slate-400 max-w-xs">
+                        Your personal gateway to the world of cinema. Track, discover, and organize your favorite media.
+                    </p>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold mb-3 text-sm">Quick Links</h4>
+                    <ul class="space-y-2">
+                        <li><a class="hover:text-primary transition-colors flex items-center gap-1.5 text-[13px]"
+                                href="#"><span class="w-1 h-1 rounded-full bg-slate-700"></span>Home</a></li>
+                        <li><a class="hover:text-primary transition-colors flex items-center gap-1.5 text-[13px]"
+                                href="#"><span class="w-1 h-1 rounded-full bg-slate-700"></span>Movies</a></li>
+                        <li><a class="hover:text-primary transition-colors flex items-center gap-1.5 text-[13px]"
+                                href="#"><span class="w-1 h-1 rounded-full bg-slate-700"></span>TV Series</a></li>
+                        <li><a class="hover:text-primary transition-colors flex items-center gap-1.5 text-[13px]"
+                                href="#"><span class="w-1 h-1 rounded-full bg-slate-700"></span>Favorites</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold mb-3 text-sm">Community</h4>
+                    <ul class="space-y-2">
+                        <li><a class="hover:text-primary transition-colors flex items-center gap-1.5 text-[13px]"
+                                href="#"><span class="w-1 h-1 rounded-full bg-slate-700"></span>Guidelines</a></li>
+                        <li><a class="hover:text-primary transition-colors flex items-center gap-1.5 text-[13px]"
+                                href="#"><span class="w-1 h-1 rounded-full bg-slate-700"></span>Discussion</a></li>
+                        <li><a class="hover:text-primary transition-colors flex items-center gap-1.5 text-[13px]"
+                                href="#"><span class="w-1 h-1 rounded-full bg-slate-700"></span>Top Users</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold mb-3 text-sm">Legal</h4>
+                    <ul class="space-y-2">
+                        <li><a class="hover:text-primary transition-colors flex items-center gap-1.5 text-[13px]"
+                                href="#"><span class="w-1 h-1 rounded-full bg-slate-700"></span>Privacy Policy</a></li>
+                        <li><a class="hover:text-primary transition-colors flex items-center gap-1.5 text-[13px]"
+                                href="#"><span class="w-1 h-1 rounded-full bg-slate-700"></span>Terms of Service</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="pt-4 border-t border-white/5 flex flex-col md:flex-row items-center justify-between gap-4">
+                <p class="text-[11px] text-slate-500 font-medium">
+                    © 2024 CineTrack Premium. All rights reserved.
+                </p>
+                <div class="flex items-center gap-4">
+                    <a class="w-8 h-8 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:bg-primary/20 hover:border-primary/50 hover:text-primary transition-all"
+                        href="#">
+                        <svg aria-hidden="true" class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                            <path
+                                d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z">
+                            </path>
+                        </svg>
+                    </a>
+                    <a class="w-8 h-8 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:bg-primary/20 hover:border-primary/50 hover:text-primary transition-all"
+                        href="#">
+                        <svg aria-hidden="true" class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                            <path clip-rule="evenodd"
+                                d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.067.06 1.407.06 4.123v.08c0 2.643-.012 2.987-.06 4.043-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.067.048-1.407.06-4.123.06h-.08c-2.643 0-2.987-.012-4.043-.06-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.047-1.024-.06-1.379-.06-3.808v-.63c0-2.43.013-2.784.06-3.808.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772A4.902 4.902 0 015.45 2.525c.636-.247 1.363-.416 2.427-.465C8.901 2.013 9.256 2 11.685 2h.63zm-.081 1.802h-.468c-2.456 0-2.784.011-3.807.058-.975.045-1.504.207-1.857.344-.467.182-.8.398-1.15.748-.35.35-.566.683-.748 1.15-.137.353-.3.882-.344 1.857-.047 1.023-.058 1.351-.058 3.807v.468c0 2.456.011 2.784.058 3.807.045.975.207 1.504.344 1.857.182.466.399.8.748 1.15.35.35.683.566 1.15.748.353.137.882.3 1.857.344 1.054.048 1.37.058 4.041.058h.08c2.597 0 2.917-.01 3.96-.058.976-.045 1.505-.207 1.858-.344.466-.182.8-.398 1.15-.748.35-.35.566-.683.748-1.15.137-.353.3-.882.344-1.857.048-1.055.058-1.37.058-4.041v-.08c0-2.597-.01-2.917-.058-3.96-.045-.976-.207-1.505-.344-1.858a3.097 3.097 0 00-.748-1.15 3.098 3.098 0 00-1.15-.748c-.353-.137-.882-.3-1.857-.344-1.023-.047-1.351-.058-3.807-.058zM12 6.865a5.135 5.135 0 110 10.27 5.135 5.135 0 010-10.27zm0 1.802a3.333 3.333 0 100 6.666 3.333 3.333 0 000-6.666zm5.338-3.205a1.2 1.2 0 110 2.4 1.2 1.2 0 010-2.4z"
+                                fill-rule="evenodd"></path>
+                        </svg>
+                    </a>
+                    <a class="w-8 h-8 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:bg-primary/20 hover:border-primary/50 hover:text-primary transition-all"
+                        href="#">
+                        <svg aria-hidden="true" class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                            <path clip-rule="evenodd"
+                                d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"
+                                fill-rule="evenodd"></path>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</body>
+
+</html>

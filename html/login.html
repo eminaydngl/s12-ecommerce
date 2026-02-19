@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>CineTrack Premium Login</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&amp;display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#ad2bee",
+                        "background-light": "#f7f6f8",
+                        "background-dark": "#1c1022",
+                    },
+                    fontFamily: {
+                        "display": ["Manrope", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+    <style type="text/tailwindcss">
+        .glass-card {
+            background: rgba(15, 7, 20, 0.8);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid rgba(173, 43, 238, 0.15);
+            box-shadow: 0 20px 50px 0 rgba(0, 0, 0, 0.5)
+        }
+        .movie-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background-image: linear-gradient(rgba(15, 7, 20, 0.9), rgba(15, 7, 20, 0.98)), url(https://lh3.googleusercontent.com/aida-public/AB6AXuA7fWgjeZlbYZWZpuFuIRggVAQKJoJrHVHCEkrG93--O2lyCrP1l8R_v9kBqWia47089L-CsQYDVI5ZKyiAlmsqYr2b4Pl4YCnQpr9whANzQcIM3oExLc5VSvV05mSY4J0ZdComh1sBjHByL-MYlibP7sjwjXjsSomBYAaXo65bucJkyi9pgbitlsCtH14wyRIDegvLL4SQHyHRjVrQ__ZikqO6ShZ_l02ljZ9J0Q6dqIgTO2XyQ31eFTlNKOSzeilbftU4a9vadx8);
+            background-size: cover;
+            background-position: center;
+            filter: brightness(0.4);
+        }
+        .input-glow:focus {
+            box-shadow: 0 0 15px rgba(173, 43, 238, 0.2);
+            border-color: #ad2bee
+        }
+    </style>
+</head>
+
+<body class="bg-background-dark font-display text-slate-100 min-h-screen flex items-center justify-center p-6">
+    <div class="movie-bg" data-alt="Dark blurred collage of classic movie posters"></div>
+    <div class="fixed top-0 left-0 w-full h-full overflow-hidden -z-10 pointer-events-none">
+        <div class="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-primary/20 rounded-full blur-[120px]"></div>
+        <div class="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-primary/10 rounded-full blur-[120px]"></div>
+    </div>
+    <main class="w-full max-w-[450px]">
+        <div class="flex flex-col items-center mb-8">
+            <div class="flex items-center gap-2 mb-2">
+                <span class="material-icons text-primary text-4xl">movie_filter</span>
+                <h1 class="text-3xl font-extrabold tracking-tight text-white">Cine<span
+                        class="text-primary">Track</span></h1>
+            </div>
+            <p class="text-slate-400 text-sm font-medium">Your cinematic journey, organized.</p>
+        </div>
+        <div class="glass-card rounded-xl p-8 md:p-10">
+            <div class="text-center mb-8">
+                <h2 class="text-2xl font-bold text-white mb-2">Welcome Back</h2>
+                <p class="text-slate-400 text-sm">Please enter your credentials to access your library</p>
+            </div>
+            <form class="space-y-6">
+                <div class="space-y-2">
+                    <label class="text-sm font-semibold text-slate-300 ml-1" for="email">Email Address</label>
+                    <div class="relative">
+                        <span
+                            class="material-icons absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 text-lg">alternate_email</span>
+                        <input
+                            class="w-full bg-background-dark/50 border border-slate-700/50 rounded-lg py-3 pl-11 pr-4 text-white placeholder:text-slate-600 focus:outline-none focus:ring-1 focus:ring-primary input-glow transition-all duration-300"
+                            id="email" name="email" placeholder="name@example.com" required="" type="email" />
+                    </div>
+                </div>
+                <div class="space-y-2">
+                    <label class="text-sm font-semibold text-slate-300 ml-1" for="password">Password</label>
+                    <div class="relative">
+                        <span
+                            class="material-icons absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 text-lg">lock_outline</span>
+                        <input
+                            class="w-full bg-background-dark/50 border border-slate-700/50 rounded-lg py-3 pl-11 pr-4 text-white placeholder:text-slate-600 focus:outline-none focus:ring-1 focus:ring-primary input-glow transition-all duration-300"
+                            id="password" name="password" placeholder="••••••••" required="" type="password" />
+                    </div>
+                </div>
+                <div class="flex items-center gap-2 px-1">
+                    <input
+                        class="w-4 h-4 rounded border-slate-700 bg-background-dark text-primary focus:ring-primary focus:ring-offset-background-dark"
+                        id="remember" type="checkbox" />
+                    <label class="text-sm text-slate-400 select-none cursor-pointer" for="remember">Remember this
+                        device</label>
+                </div>
+                <button
+                    class="w-full bg-primary hover:bg-primary/90 text-white font-bold py-3.5 rounded-lg shadow-lg shadow-primary/20 transition-all duration-300 transform active:scale-[0.98] flex items-center justify-center gap-2"
+                    type="submit">
+                    <span>Sign In</span>
+                    <span class="material-icons text-lg">login</span>
+                </button>
+            </form>
+        </div>
+        <div class="mt-8 text-center">
+            <p class="text-slate-400 text-sm">
+                Don't have an account yet?
+                <a class="text-primary font-bold hover:underline underline-offset-4 ml-1 transition-all" href="#">Create
+                    account</a>
+            </p>
+        </div>
+        <div class="mt-12 flex justify-center gap-6 text-[10px] text-slate-600 font-semibold uppercase tracking-widest">
+            <a class="hover:text-slate-400 transition-colors" href="#">Privacy Policy</a>
+            <a class="hover:text-slate-400 transition-colors" href="#">Terms of Service</a>
+            <a class="hover:text-slate-400 transition-colors" href="#">Support</a>
+        </div>
+    </main>
+</body>
+
+</html>
